@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>춘배 매매 성적표</title>
-<meta name="description" content="승률 83% — 익절도 손절도 전부 공개. 모든 기록에 텔레그램 원문 링크, 실시간 카드 3,400장은 채팅방에.">
+<meta name="description" content="승률 83% — 익절도 손절도 전부 공개. 모든 기록에 텔레그램 원문 링크, 실시간 카드 3,436장은 채팅방에.">
 <style>
   :root{
     --bg:#0b0e14; --panel:#11151d; --panel2:#151a24; --line:#1e2530;
@@ -70,13 +70,19 @@
         border-radius:6px;padding:12px 14px;margin:10px 0 0;font-size:12.8px;color:var(--sub)}
   .band b{color:var(--ink)}
 
-  /* 채팅방 카드 하이라이트 그리드 */
+  /* 카드 그리드 (채팅방 실현 하이라이트 + 회원 인증 공용) */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
-  .cd{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:11px 12px}
+  .cd{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:11px 12px;
+      display:flex;flex-direction:column;text-decoration:none;color:inherit}
+  a.cd:hover{border-color:var(--tg)}
   .cd .pct{font-size:18px;font-weight:800;color:var(--red);letter-spacing:-.01em}
   .cd .pair{font-size:11.5px;font-weight:700;margin-top:2px}
   .cd .pair .s{font-size:10px;padding:0 4px;border-radius:3px;margin-right:4px}
   .cd .dt{font-size:10.5px;color:var(--dim);margin-top:2px}
+  .cd .go2{margin-top:auto;padding-top:5px;font-size:10.5px;color:var(--tg);font-weight:700}
+  .cd.more{align-items:center;justify-content:center;text-align:center;background:var(--panel2);
+           border-style:dashed;color:var(--tg);font-weight:800;font-size:13px}
+  .cd.more small{color:var(--dim);font-weight:500;font-size:10.5px;margin-top:3px}
   @media (max-width:520px){ .cards{grid-template-columns:repeat(2,1fr)} }
 
   .proof{background:linear-gradient(0deg,rgba(46,166,218,.06),rgba(46,166,218,.06));
@@ -86,14 +92,23 @@
   .proof .go{display:inline-block;margin-top:9px;background:var(--tg);color:#fff;text-decoration:none;
              font-weight:800;font-size:13px;padding:9px 16px;border-radius:5px}
 
-  .cta{display:block;text-align:center;background:var(--tg);color:#fff;text-decoration:none;
-       border-radius:6px;padding:14px;font-size:15px;font-weight:800;margin:26px 0 0}
-  .cta small{display:block;font-weight:500;font-size:11.5px;color:#d8f0fb;margin-top:2px}
+  /* 연도 탭 */
+  .ytabs{display:flex;gap:6px;margin:0 0 10px}
+  .ytab{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--sub);
+        border-radius:6px;padding:10px 0;font-size:14px;font-weight:800;cursor:pointer;
+        font-family:inherit;text-align:center}
+  .ytab.on{background:var(--panel2);border-color:var(--tg);color:var(--ink)}
+  .ypane{display:none}
+  .ypane.on{display:block}
 
-  .oldrec{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:12.5px;color:var(--sub)}
+  .oldrec{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:12.8px;color:var(--sub)}
   .oldrec b{color:var(--ink)}
   .oldrec a{color:var(--blue);text-decoration:none;font-size:11.5px;margin-right:4px}
   .oldrec p{margin:4px 0}
+
+  .cta{display:block;text-align:center;background:var(--tg);color:#fff;text-decoration:none;
+       border-radius:6px;padding:14px;font-size:15px;font-weight:800;margin:26px 0 0}
+  .cta small{display:block;font-weight:500;font-size:11.5px;color:#d8f0fb;margin-top:2px}
 
   .rules{margin:22px 2px 0;font-size:12.8px;color:var(--sub)}
   .rules b{color:var(--ink)}
@@ -120,7 +135,7 @@
 
 <div class="tick">
   <div class="tk"><div class="v r num">+512.23%</div><div class="k">최고 청산 (숏 25배)</div></div>
-  <div class="tk"><div class="v r num">12장</div><div class="k">실현 +100% 넘는 카드</div></div>
+  <div class="tk"><div class="v r num">10장+</div><div class="k">실현 +100% 넘는 카드</div></div>
   <div class="tk"><div class="v b num">-43.09%</div><div class="k">최대 손절 — 숨김 없음</div></div>
   <div class="tk"><div class="v num">3,436장</div><div class="k">채팅방 실시간 카드·기록</div></div>
   <div class="tk"><div class="v num">41건+</div><div class="k">회원 수익 인증</div></div>
@@ -178,7 +193,49 @@
 <div class="band"><b>왜 수익률이 이렇게 큰가요?</b> 25배 거래라서입니다. 가격이 1% 움직이면 손익은 25% 움직입니다.
 그래서 모든 기록에 실제 가격 변동을 같이 적습니다. 크게 벌 수 있는 만큼 크게 잃을 수 있습니다 — 그래서 손절도 그대로 공개합니다.</div>
 
-<div class="lbl"><h2>2024~2025년 거래소 인증 기록 — 15건 전부</h2><span>BingX · Bitget · BitMart · MEXC · Binance</span></div>
+<div class="lbl"><h2>채팅방 실시간 카드 — 실현 +100% 넘는 것들</h2><span>거래소 화면 그대로 · 카드 누르면 채팅방 원문</span></div>
+<div class="cards">
+  <a class="cd" href="https://t.me/chunbae74/42043" target="_blank"><div class="pct num">+281.59%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2025-07-11 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/42873" target="_blank"><div class="pct num">+261.91%</div><div class="pair"><span class="s side lng">롱 10×</span>ZEC</div><div class="dt num">2025-11-16 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/43352" target="_blank"><div class="pct num">+230.94%</div><div class="pair"><span class="s side lng">롱 30×</span>BTC</div><div class="dt num">2026-07-05 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/42043" target="_blank"><div class="pct num">+217.28%</div><div class="pair"><span class="s side lng">롱 10×</span>ARB</div><div class="dt num">2025-07-11 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/43187" target="_blank"><div class="pct num">+180.25%</div><div class="pair"><span class="s side sht">숏 30×</span>BTC</div><div class="dt num">2026-02-19 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/42636" target="_blank"><div class="pct num">+148.69%</div><div class="pair"><span class="s side lng">롱 40×</span>BTC</div><div class="dt num">2025-10-27 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/42043" target="_blank"><div class="pct num">+135.77%</div><div class="pair"><span class="s side lng">롱 20×</span>BTC</div><div class="dt num">2025-07-11 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/42636" target="_blank"><div class="pct num">+120.53%</div><div class="pair"><span class="s side lng">롱 30×</span>ETH</div><div class="dt num">2025-10-27 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/42021" target="_blank"><div class="pct num">+110.68%</div><div class="pair"><span class="s side lng">롱 10×</span>GALA</div><div class="dt num">2025-06-10 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/chunbae74/43212" target="_blank"><div class="pct num">+104.60%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2026-03-13 실현</div><div class="go2">원문 →</div></a>
+  <a class="cd more" href="https://t.me/chunbae74" target="_blank">+ 3,436장 전부 보기<small>채팅방 미디어 탭</small></a>
+</div>
+<div class="proof"><b>이 카드들, 편집해서 보여드리는 게 아닙니다.</b> 카드를 누르면 채팅방의 그 날 원문으로 이동합니다.
+채팅방 상단 프로필 → 미디어 탭에는 2023년부터 지금까지 쌓인 <b>사진·카드 3,436장</b>이 날짜 순서 그대로 있습니다
+(+134.16% ETH 실현 같은 카드들 포함). BTC뿐 아니라 ETH·SOL·XRP·도지 같은 알트 실시간 진입·청산까지 전부요. 직접 넘겨보고 판단하세요.
+<br><a class="go" href="https://t.me/chunbae74" target="_blank" rel="noopener">채팅방에서 원본 카드 확인 →</a></div>
+
+<div class="lbl"><h2>회원들의 수익 인증 — 41건+</h2><span>제 성적과 섞지 않고 따로 셉니다 · 회원 본인 계정이 찍힌 것만</span></div>
+<div class="cards">
+  <a class="cd" href="https://t.me/REALchunbae/2672" target="_blank"><div class="pct num">+11082%</div><div class="pair"><span class="s side lng">롱 50×</span>OCEAN</div><div class="dt">채널 인증 · 회원</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/REALchunbae/2999" target="_blank"><div class="pct num">+142.88%</div><div class="pair"><span class="s side sht">숏</span>BingX</div><div class="dt">채널 인증 · 회원</div><div class="go2">원문 →</div></a>
+  <a class="cd" href="https://t.me/REALchunbae/2772" target="_blank"><div class="pct num">+58.53%</div><div class="pair"><span class="s side sht">숏</span>MEXC</div><div class="dt">채널 인증 · 회원</div><div class="go2">원문 →</div></a>
+  <div class="cd"><div class="pct num">+133.81%</div><div class="pair"><span class="s side sht">숏 20×</span>FET</div><div class="dt">채팅방 · 회원 계정 카드</div></div>
+  <div class="cd"><div class="pct num">+96.52%</div><div class="pair"><span class="s side sht">숏 20×</span>APT</div><div class="dt">채팅방 · 바이낸스 회원</div></div>
+  <div class="cd"><div class="pct num">+68.43%</div><div class="pair"><span class="s side lng">롱 20×</span>ARB</div><div class="dt">채팅방 · 회원 계정 카드</div></div>
+  <div class="cd"><div class="pct num">+43.63%</div><div class="pair"><span class="s side sht">숏 8×</span>FET</div><div class="dt">채팅방 · 회원 계정 카드</div></div>
+  <div class="cd"><div class="pct num">+42.18%</div><div class="pair"><span class="s side lng">롱 20×</span>SEI</div><div class="dt">채팅방 · 회원 계정 카드</div></div>
+  <a class="cd more" href="https://t.me/REALchunbae/202" target="_blank">2022 단체 인증<small>채널 원문 보기</small></a>
+</div>
+<div class="band" style="border-left-color:var(--tg)">채널에서 24건, 채팅방 미디어 초반부에서 17건+ — 원문에 "전달됨" 표시가 있거나
+회원 본인 거래소 계정(이메일·UID)이 찍혀 있어 제 기록과 구분됩니다. 수익은 회원분들 실력과 시장 상황에 따라 다릅니다.</div>
+
+<div class="lbl"><h2>지난 기록 — 연도를 눌러 보세요</h2><span>수치를 안 적던 시절도 숨기지 않습니다</span></div>
+<div class="ytabs">
+  <button class="ytab on" data-y="2025">2025</button>
+  <button class="ytab" data-y="2024">2024</button>
+  <button class="ytab" data-y="2023">2023</button>
+  <button class="ytab" data-y="2022">2022</button>
+</div>
+
+<div class="ypane on" id="y2025">
 <div class="list">
   <div class="it"><div class="l"><div class="d num">2025-10-04</div>
     <div class="p"><span class="side lng">롱 20×</span><span class="num">FLOKI 0.0000863 → 0.00011244</span></div>
@@ -216,6 +273,11 @@
     <div class="p"><span class="side lng">롱 10×</span><span class="num">ETH 2,613.08 → 2,815.66</span></div>
     <div class="sub2">MEXC 카드 · 가격 +7.8%</div></div>
     <div class="r"><div class="roi up num">+77.36%</div><a class="ev" href="https://t.me/REALchunbae/2880" target="_blank">원문 보기</a></div></div>
+</div>
+</div>
+
+<div class="ypane" id="y2024">
+<div class="list">
   <div class="it"><div class="l"><div class="d num">2024-12-21</div>
     <div class="p"><span class="side etc">—</span>비트·이더 분할 익절</div>
     <div class="sub2">수치 미공개 시기</div></div>
@@ -241,56 +303,35 @@
     <div class="sub2">Binance 카드 · 분할 익절 · 가격 +3.5% ※카드 표기 그대로(수수료 차이로 계산값 +434.5%와 상이)</div></div>
     <div class="r"><div class="roi up num">+419.93%</div><a class="ev" href="https://t.me/REALchunbae/2760" target="_blank">원문 보기</a></div></div>
 </div>
-
-<div class="lbl"><h2>채팅방 실시간 카드 — 실현 +100% 넘는 것만 12장</h2><span>거래소 화면 그대로 · 채팅방 미디어 탭에서 전부 확인 가능</span></div>
-<div class="cards">
-  <div class="cd"><div class="pct num">+281.59%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2025-07-11 실현</div></div>
-  <div class="cd"><div class="pct num">+261.91%</div><div class="pair"><span class="s side lng">롱 10×</span>ZEC</div><div class="dt num">2025-11-16 실현</div></div>
-  <div class="cd"><div class="pct num">+230.94%</div><div class="pair"><span class="s side lng">롱 30×</span>BTC</div><div class="dt num">2026-07-05 실현</div></div>
-  <div class="cd"><div class="pct num">+217.28%</div><div class="pair"><span class="s side lng">롱 10×</span>ARB</div><div class="dt num">2025-07-11 실현</div></div>
-  <div class="cd"><div class="pct num">+180.25%</div><div class="pair"><span class="s side sht">숏 30×</span>BTC</div><div class="dt num">2026-02-19 실현</div></div>
-  <div class="cd"><div class="pct num">+148.69%</div><div class="pair"><span class="s side lng">롱 40×</span>BTC</div><div class="dt num">2025-10-27 실현</div></div>
-  <div class="cd"><div class="pct num">+135.77%</div><div class="pair"><span class="s side lng">롱 20×</span>BTC</div><div class="dt num">2025-07-11 실현</div></div>
-  <div class="cd"><div class="pct num">+134.16%</div><div class="pair"><span class="s side lng">롱 30×</span>ETH</div><div class="dt num">2025-10-23 실현</div></div>
-  <div class="cd"><div class="pct num">+120.53%</div><div class="pair"><span class="s side lng">롱 30×</span>ETH</div><div class="dt num">2025-10-27 실현</div></div>
-  <div class="cd"><div class="pct num">+110.68%</div><div class="pair"><span class="s side lng">롱 10×</span>GALA</div><div class="dt num">2025-06-10 실현</div></div>
-  <div class="cd"><div class="pct num">+104.60%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2026-03 실현</div></div>
-  <div class="cd"><div class="pct num">+97.49%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2025-11-27 실현</div></div>
-</div>
-<div class="proof"><b>이 카드들, 편집해서 보여드리는 게 아닙니다.</b> 채팅방에 들어가서 상단 프로필 → 미디어 탭을 열면
-2023년부터 지금까지 쌓인 <b>사진·카드 3,436장</b>이 날짜 순서 그대로 나옵니다.
-BTC뿐 아니라 ETH·SOL·XRP·도지 같은 알트 실시간 진입·청산까지 전부요. 직접 넘겨보고 판단하세요.
-<br><a class="go" href="https://t.me/chunbae74" target="_blank" rel="noopener">채팅방에서 원본 카드 확인 →</a></div>
-
-<div class="lbl"><h2>회원들의 수익 인증 — 41건+</h2><span>제 성적과 섞지 않고 따로 셉니다</span></div>
-<div class="oldrec">
-  <p><b>채널 인증 24건</b> — 원문에 "전달됨" 표시나 다른 분 계정이 찍혀 있어 제 기록과 구분됩니다. 대표 사례:
-    OCEAN 롱 50× +11082% <a href="https://t.me/REALchunbae/2672" target="_blank">보기</a> ·
-    MEXC 숏 +58.53% <a href="https://t.me/REALchunbae/2772" target="_blank">보기</a> ·
-    BingX 숏 +142.88% <a href="https://t.me/REALchunbae/2999" target="_blank">보기</a> ·
-    2022 단체 인증 <a href="https://t.me/REALchunbae/202" target="_blank">보기</a></p>
-  <p><b>채팅방 인증 17건+ 확인</b> — 회원 본인 계정이 찍힌 카드들:
-    바이낸스 APT 숏 20× +96.52% · FET 숏 20× +133.81% · ARB 롱 20× +68.43% ·
-    FET 숏 8× +43.63% · SEI 롱 20× +42.18% · SAND 숏 20× +32.94% 등.
-    채팅방 미디어 탭 초반부에 그대로 있습니다.</p>
-</div>
-
-<div class="lbl"><h2>더 오래된 기록 — 2022~2024</h2><span>수치를 안 적던 시절도 숨기지 않습니다</span></div>
-<div class="oldrec">
-  <p><b>2024년 한 줄 보고</b> — 익절가 전부 도달
+<div class="oldrec" style="margin-top:8px;border-radius:6px">
+  <p><b>그 밖의 한 줄 보고</b> — 익절가 전부 도달
     <a href="https://t.me/REALchunbae/2833" target="_blank">#2833</a> · 롱 분할 익절
     <a href="https://t.me/REALchunbae/2823" target="_blank">#2823</a> · 분할 익절 후 본절
     <a href="https://t.me/REALchunbae/2837" target="_blank">#2837</a> ·
     <a href="https://t.me/REALchunbae/2805" target="_blank">#2805</a> · 비트·이더 손절
     <a href="https://t.me/REALchunbae/2639" target="_blank">#2639</a></p>
-  <p><b>2022~2023년</b> — 2022년은 매일 '매매 일기'로 익절·손절을 기록(손절 포함:
-    <a href="https://t.me/REALchunbae/149" target="_blank">#149</a>
-    <a href="https://t.me/REALchunbae/253" target="_blank">#253</a>
-    <a href="https://t.me/REALchunbae/485" target="_blank">#485</a>),
-    2023년은 목표가를 미리 알리던 시기(
-    <a href="https://t.me/REALchunbae/2031" target="_blank">#2031</a>
-    <a href="https://t.me/REALchunbae/2122" target="_blank">#2122</a>
-    <a href="https://t.me/REALchunbae/2135" target="_blank">#2135</a>). 당시엔 청산 수치를 적지 않았습니다.</p>
+</div>
+</div>
+
+<div class="ypane" id="y2023">
+<div class="oldrec">
+  <p><b>목표가를 미리 알리던 시기</b> — 매수가·익절가·손절가를 먼저 올리고, 도달하면 보고하던 방식이었습니다.
+  당시엔 청산 수치를 따로 적지 않았습니다.</p>
+  <p>라이트코인 콜 <a href="https://t.me/REALchunbae/2031" target="_blank">#2031</a> ·
+     비트 스윙 콜 <a href="https://t.me/REALchunbae/2122" target="_blank">#2122</a> ·
+     목표가 도착 보고 <a href="https://t.me/REALchunbae/2135" target="_blank">#2135</a></p>
+</div>
+</div>
+
+<div class="ypane" id="y2022">
+<div class="oldrec">
+  <p><b>매일 '매매 일기'를 쓰던 시기</b> — 그날의 익절·손절 코인을 일기처럼 기록했습니다.
+  손절도 그대로 적었습니다(아톰·루나2·솔라나 등).</p>
+  <p>손절 기록 <a href="https://t.me/REALchunbae/149" target="_blank">#149</a>
+     <a href="https://t.me/REALchunbae/253" target="_blank">#253</a>
+     <a href="https://t.me/REALchunbae/485" target="_blank">#485</a> ·
+     단체 수익 인증 <a href="https://t.me/REALchunbae/202" target="_blank">#202</a></p>
+</div>
 </div>
 
 <a class="cta" href="https://t.me/chunbae74" target="_blank" rel="noopener">
@@ -311,5 +352,16 @@ BTC뿐 아니라 ETH·SOL·XRP·도지 같은 알트 실시간 진입·청산까
 </div>
 
 </div>
+
+<script>
+document.querySelectorAll('.ytab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.ytab').forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.ypane').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    document.getElementById('y'+b.dataset.y).classList.add('on');
+  });
+});
+</script>
 </body>
 </html>
