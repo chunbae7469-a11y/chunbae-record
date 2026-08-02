@@ -3,315 +3,284 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>춘배 매매 기록 — 익절도, 손절도</title>
-<meta name="description" content="2022년 채널 개설부터의 청산 보고를 하나도 빼지 않고 모았습니다. 운영자 기록과 회원 인증을 구분하고, 모든 줄에 원문 링크를 답니다.">
+<title>춘배 매매 성적표 — 익절도, 손절도</title>
+<meta name="description" content="거래소 인증이 남아 있는 청산 기록을 익절·손절 하나도 빼지 않고 공개합니다. 모든 줄에 텔레그램 원문 링크를 답니다.">
 <style>
-  :root{--bg:#0d1117;--panel:#161b22;--line:#242c38;--ink:#e6e3dc;--dim:#8b949e;
-        --gold:#c9a227;--gold-soft:#e0c05a;--up:#3fb950;--down:#d9534f}
+  :root{
+    --bg:#f4f5f7; --card:#ffffff; --line:#dfe2e8; --line2:#eef0f4;
+    --ink:#1a1d23; --sub:#5b6270; --dim:#8b93a1;
+    --up:#d32027;        /* 한국식 — 이익은 빨강 */
+    --down:#1257c9;      /* 한국식 — 손실은 파랑 */
+    --flat:#6b7280;
+    --accent:#0f2a5a;
+  }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
-       font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-       line-height:1.7;-webkit-text-size-adjust:100%}
-  .wrap{max-width:960px;margin:0 auto;padding:26px 16px 64px}
-  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:22px}
-  .brand{font-size:13px;letter-spacing:.18em;color:var(--gold);margin:0 0 10px}
-  h1{font-size:25px;margin:0 0 10px;font-weight:700}
-  .lead{color:var(--dim);font-size:15px;margin:0}
-  .notice{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
-          border-radius:8px;padding:15px 17px;margin:20px 0;font-size:14.3px}
-  .notice b{color:var(--gold-soft)}
-  h2{font-size:17px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-  .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin:16px 0 6px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 15px}
-  .card .k{font-size:12px;color:var(--dim);margin-bottom:5px}
-  .card .v{font-size:21px;font-weight:700;color:var(--gold-soft)}
-  .card .s{font-size:12px;color:var(--dim);margin-top:3px}
-  .tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 12px}
-  .tab{background:var(--panel);border:1px solid var(--line);color:var(--dim);
-       border-radius:999px;padding:6px 15px;font-size:13.5px;cursor:pointer}
-  .tab[aria-selected="true"]{border-color:var(--gold);color:var(--gold-soft)}
-  .eranote{background:#12161c;border:1px solid var(--line);border-radius:8px;
-           padding:12px 15px;margin:0 0 12px;font-size:13.3px;color:var(--dim)}
+       font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+       line-height:1.65;-webkit-text-size-adjust:100%}
+  .wrap{max-width:920px;margin:0 auto;padding:0 14px 60px}
+  header{background:var(--accent);color:#fff;margin:0 -14px 20px;padding:26px 20px 22px}
+  header .in{max-width:920px;margin:0 auto}
+  .brand{font-size:12px;letter-spacing:.2em;color:#9fb6dd;margin:0 0 8px}
+  h1{font-size:23px;margin:0 0 8px;font-weight:800;letter-spacing:-.02em}
+  .lead{color:#d4ddec;font-size:14px;margin:0}
+  .notice{background:#fffbe9;border:1px solid #efe0a8;border-left:4px solid #d4a017;
+          border-radius:4px;padding:14px 16px;margin:18px 0;font-size:13.6px;color:#4a4029}
+  .notice b{color:#8a6a10}
+  h2{font-size:16px;margin:30px 0 10px;padding-left:9px;border-left:4px solid var(--accent);font-weight:800}
+  .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:9px;margin:12px 0 6px}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:12px 13px;text-align:center}
+  .box .k{font-size:11.5px;color:var(--dim);margin-bottom:4px}
+  .box .v{font-size:20px;font-weight:800;color:var(--accent);letter-spacing:-.02em}
+  .box .s{font-size:11.5px;color:var(--sub);margin-top:2px}
+  .tabs{display:flex;gap:0;flex-wrap:wrap;margin:14px 0 0;border-bottom:2px solid var(--accent)}
+  .tab{background:#e8ebf0;border:1px solid var(--line);border-bottom:none;color:var(--sub);
+       border-radius:4px 4px 0 0;padding:7px 16px;font-size:13.5px;cursor:pointer;margin-right:3px;font-weight:600}
+  .tab[aria-selected="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .eranote{background:#eef2f8;border:1px solid #d8e0ec;border-radius:0 0 4px 4px;
+           padding:11px 14px;margin:0 0 10px;font-size:12.8px;color:var(--sub)}
   .eranote b{color:var(--ink)}
-  table{width:100%;border-collapse:collapse;font-size:13.6px}
-  thead th{text-align:left;color:var(--dim);font-weight:500;font-size:12.3px;
-           border-bottom:1px solid var(--line);padding:8px 7px;white-space:nowrap}
-  tbody td{border-bottom:1px solid var(--line);padding:10px 7px;vertical-align:top}
-  tbody tr:hover{background:#131922}
-  .tag{display:inline-block;font-size:11.3px;padding:2px 7px;border-radius:5px;white-space:nowrap}
-  .win{background:rgba(63,185,80,.12);color:var(--up);border:1px solid rgba(63,185,80,.3)}
-  .loss{background:rgba(217,83,79,.12);color:var(--down);border:1px solid rgba(217,83,79,.3)}
-  .flat,.side{background:#1b2330;color:var(--dim);border:1px solid var(--line)}
+  .tw{background:var(--card);border:1px solid var(--line);border-radius:0 0 4px 4px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.3px;min-width:600px}
+  thead th{background:#eef1f6;text-align:center;color:var(--sub);font-weight:700;font-size:12.3px;
+           border-bottom:1px solid var(--line);padding:9px 6px;white-space:nowrap}
+  tbody td{border-bottom:1px solid var(--line2);padding:10px 8px;vertical-align:middle;text-align:center}
+  tbody td.l{text-align:left}
+  tbody tr:hover{background:#f7f9fc}
+  tbody tr:last-child td{border-bottom:none}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:3px;white-space:nowrap;font-weight:700}
+  .t-up{background:#fdeced;color:var(--up);border:1px solid #f3c3c6}
+  .t-dn{background:#e8f0fd;color:var(--down);border:1px solid #bdd2f5}
+  .t-ft{background:#f0f1f3;color:var(--flat);border:1px solid #dcdee3}
+  .t-sd{background:#f5f6f8;color:var(--sub);border:1px solid var(--line)}
   .num{font-variant-numeric:tabular-nums;white-space:nowrap}
-  .roi{font-weight:700}.roi.w{color:var(--up)}.roi.l{color:var(--down)}.roi.n{color:var(--dim);font-weight:500}
-  .mv,.note{color:var(--dim);font-size:12.3px}
-  a.src{color:var(--gold);text-decoration:none;font-size:12.3px;border-bottom:1px dotted var(--gold);margin-right:6px}
-  ul.plain{padding-left:18px;margin:9px 0}ul.plain li{margin:6px 0}
-  .empty{color:var(--dim);padding:24px 8px;text-align:center}
-  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
-  .disc{background:#12161c;border:1px dashed var(--line);border-radius:8px;padding:13px 15px;margin-top:16px;font-size:12.8px}
-  @media (max-width:560px){h1{font-size:20px}
-    thead th:nth-child(3),tbody td:nth-child(3){display:none}
-    .wrap{padding:18px 13px 50px}}
+  .roi{font-weight:800;font-size:14px}.roi.u{color:var(--up)}.roi.d{color:var(--down)}.roi.n{color:var(--dim);font-weight:600;font-size:13px}
+  .mv{color:var(--dim);font-size:11.5px}
+  .note{color:var(--sub);font-size:12px;line-height:1.45}
+  a.src{color:#1257c9;text-decoration:none;font-size:12px;margin-right:5px;white-space:nowrap}
+  a.src:hover{text-decoration:underline}
+  ul.plain{padding-left:17px;margin:8px 0}ul.plain li{margin:5px 0;font-size:13.5px;color:var(--sub)}
+  ul.plain li b{color:var(--ink)}
+  .hist{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px 16px;margin:9px 0}
+  .hist h3{margin:0 0 5px;font-size:14px;color:var(--ink)}
+  .hist p{margin:3px 0;font-size:12.8px;color:var(--sub)}
+  .disc{background:#f0f1f3;border:1px solid var(--line);border-radius:4px;padding:13px 15px;margin-top:16px;font-size:12.5px;color:var(--sub)}
+  footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:var(--dim);font-size:12.3px}
+  @media (max-width:560px){h1{font-size:19px} .wrap{padding:0 11px 46px}
+    header{margin:0 -11px 16px;padding:22px 14px 18px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<header>
+<header><div class="in">
   <p class="brand">CHUNBAE · BTC</p>
-  <h1>매매 기록 — 익절도, 손절도</h1>
-  <p class="lead">2022년 채널을 연 날부터, 올렸던 청산 보고를 하나도 빼지 않고 모았습니다.
-  모든 줄에 텔레그램 원문 링크를 답니다.</p>
-</header>
+  <h1>매매 성적표 — 익절도, 손절도</h1>
+  <p class="lead">거래소 화면으로 인증된 청산 기록을, 좋은 것만 고르지 않고 그대로 올립니다. 모든 줄에 텔레그램 원문 링크가 있습니다.</p>
+</div></header>
+
+<div class="wrap">
 
 <div class="notice">
   <b>먼저 읽어 주세요.</b>
-  이 표에는 <b>운영자 본인 기록만</b> 넣었습니다. 채널에는 회원분들이 보내온 수익 인증도 함께 올라오는데,
-  그건 아래 <b>「회원 인증」</b> 칸에 따로 두었습니다. 섞으면 제 성적이 부풀려지기 때문입니다.<br>
-  2026년 기록은 <b>25배</b>로 한 거래입니다. 25배는 가격이 1% 움직이면 손익이 25% 움직인다는 뜻이라,
-  수익률 아래에 <b>실제 가격이 움직인 폭</b>을 같이 적었습니다.
-  2022~2024년은 결과만 한 줄로 알리던 시기라 수치가 없는 줄이 많습니다 — 그 사실도 그대로 둡니다.
+  ① 이 표에는 <b>운영자 본인 기록만</b> 넣었습니다. 회원분들이 보내주신 수익 인증은 아래 「회원 인증」에 따로 두었습니다.<br>
+  ② 수익률 옆에 <b>실제 가격이 움직인 폭</b>을 같이 적었습니다. 배율이 크면 작은 가격 변동도 큰 수익률로 보이기 때문입니다.<br>
+  ③ 거래소 카드가 <b>미실현</b>으로 표기된 건은 그대로 「미실현」이라 적었습니다. 청산 완료와 구분해서 보십시오.
 </div>
 
 <h2>한눈에 <span class="note" id="sumScope"></span></h2>
 <div class="sum" id="summary"></div>
 <p class="note" id="sumNote"></p>
 
-<h2>기록</h2>
+<h2>인증 기록</h2>
 <div class="tabs" id="tabs" role="tablist"></div>
 <div class="eranote" id="eranote" style="display:none"></div>
+<div class="tw">
 <table>
-  <thead><tr><th>날짜</th><th>방향</th><th>진입 → 청산</th><th>결과</th><th>수익률</th><th>원문</th></tr></thead>
+  <thead><tr><th>날짜</th><th>방향·배율</th><th>진입 → 청산</th><th>결과</th><th>수익률</th><th>원문</th></tr></thead>
   <tbody id="rows"></tbody>
 </table>
-
-<h2>회원 인증 (운영자 성적과 분리)</h2>
-<div class="eranote">
-  <b>이건 제 성적이 아닙니다.</b> 채널 회원분들이 보내주신 수익 인증을, 채널의 실제 역사이므로 지우지 않고
-  여기에 따로 모았습니다. 아래는 전부 원문에 <b>“전달됨(Forwarded)”</b> 표시가 있거나
-  카드에 <b>다른 분의 계정</b>이 찍혀 있어 회원 인증으로 확인된 것입니다.
 </div>
+
+<h2>2022~2023년 기록</h2>
+<div class="hist">
+  <h3>2022년 (8~9월) · 매일 매매 일기</h3>
+  <p>매일 익절·손절을 코인 이름으로 적던 시기입니다. 거래별 수치는 당시 적지 않았습니다.
+  손절도 그대로 남아 있습니다 — 아톰, 비트 숏, 루나2 롱, 솔라나 등.</p>
+  <p>원문 예시:
+    <a class="src" href="https://t.me/REALchunbae/149" target="_blank">#149</a>
+    <a class="src" href="https://t.me/REALchunbae/253" target="_blank">#253</a>
+    <a class="src" href="https://t.me/REALchunbae/485" target="_blank">#485</a>
+    <a class="src" href="https://t.me/REALchunbae/628" target="_blank">#628</a>
+    <a class="src" href="https://t.me/REALchunbae/698" target="_blank">#698</a>
+    <a class="src" href="https://t.me/REALchunbae/736" target="_blank">#736</a>
+  </p>
+</div>
+<div class="hist">
+  <h3>2023년 · 목표가를 미리 알리던 시기</h3>
+  <p>매수가·익절가·손절가를 <b>미리</b> 올리고 도착을 알리던 방식이었습니다. 청산 수치는 적지 않았습니다.</p>
+  <p>원문 예시:
+    <a class="src" href="https://t.me/REALchunbae/1973" target="_blank">#1973</a>
+    <a class="src" href="https://t.me/REALchunbae/2031" target="_blank">#2031</a>
+    <a class="src" href="https://t.me/REALchunbae/2122" target="_blank">#2122</a>
+    <a class="src" href="https://t.me/REALchunbae/2135" target="_blank">#2135</a>
+    <a class="src" href="https://t.me/REALchunbae/2257" target="_blank">#2257</a>
+    <a class="src" href="https://t.me/REALchunbae/2593" target="_blank">#2593</a>
+  </p>
+</div>
+
+<h2>회원 인증 (제 성적이 아닙니다)</h2>
+<div class="eranote" style="border-radius:4px">
+  채널에는 회원분들이 보내주신 수익 인증도 함께 올라옵니다. 채널의 실제 역사이므로 지우지 않되,
+  제 성적과 섞이지 않도록 여기에 따로 둡니다. 아래는 원문에 <b>“전달됨”</b> 표시가 있거나
+  카드에 <b>다른 분의 계정</b>이 찍혀 있어 확인된 것입니다.
+</div>
+<div class="tw" style="border-radius:4px">
 <table>
   <thead><tr><th>날짜</th><th>보내주신 분</th><th>내용</th><th>원문</th></tr></thead>
   <tbody id="mrows"></tbody>
 </table>
-
-<h2>미리 알렸던 매매 계획 (참고)</h2>
-<div class="eranote">
-  결과만 모으면 “운이 좋았던 것만 고른 것 아니냐”는 의심이 남습니다. 그래서 <b>진입 전에 미리 올렸던
-  매매 계획·목표가</b>도 링크로 함께 둡니다. 계획과 결과를 나란히 보시면 판단하기 쉽습니다.
-  (계획은 청산 보고가 아니므로 위 성적 집계에는 넣지 않았습니다)
 </div>
-<p class="note" id="planlist"></p>
 
 <h2>제가 지키는 것</h2>
 <ul class="plain">
-  <li>이긴 것만 골라 보여드리지 않습니다. 손절도 같은 표에 넣습니다.</li>
-  <li>회원분 인증은 제 성적에 섞지 않습니다.</li>
-  <li>배율을 항상 같이 적습니다. 2026년 인증 거래는 전부 25배였습니다.</li>
-  <li>진행 중인 포지션의 매수가·목표가·손절가는 공개하지 않습니다.</li>
+  <li><b>이긴 것만 골라 보여드리지 않습니다.</b> 손절도 같은 표에 넣습니다.</li>
+  <li><b>회원분 인증은 제 성적에 섞지 않습니다.</b></li>
+  <li><b>배율을 항상 같이 적습니다.</b> 배율을 빼면 수익률이 실제보다 커 보입니다.</li>
+  <li><b>진행 중인 포지션의 매수가·목표가·손절가는 공개하지 않습니다.</b> 따라 들어오시게 만들지 않으려는 것입니다.</li>
 </ul>
 
 <div class="disc">
   높은 배율은 방향이 맞으면 크게 돌려주지만, 틀리면 그만큼 빠르게 무너집니다.
   지난 결과가 다음 결과를 보장하지 않습니다. 저를 따라 하시기보다 각자의 기준을 세우시길 권합니다.<br>
-  ※ 정보 제공·교육 목적 · 투자 권유 아님. 판단과 책임은 본인에게 있습니다.
+  ※ 정보 제공·교육 목적이며 투자 권유가 아닙니다. 판단과 책임은 본인에게 있습니다.
 </div>
 
 <footer>
   <div id="updated"></div>
-  <div style="margin-top:6px">매매 일기장은 텔레그램에 · <a class="src" href="https://t.me/chunbae74">t.me/chunbae74</a></div>
+  <div style="margin-top:5px">매매 일기장은 텔레그램에 · <a class="src" href="https://t.me/chunbae74">t.me/chunbae74</a></div>
 </footer>
 
 </div>
 
 <script>
-const T = id => `https://t.me/REALchunbae/${id}`;
-/* result: 익절 | 손절 | 본절 · src: 원문 메시지 번호 배열 */
-const RECORDS = [
- // ── 2026 (거래소 인증·수치 공개) ──
- {d:"2026-02-04",s:"롱",lev:25,e:74016.1,x:72931,roi:-36.65,r:"손절",n:"거래소 카드 인증",src:[2997]},
- {d:"2026-03-18",s:"숏",lev:null,e:null,x:null,roi:null,r:"본절",n:"본절 로스로 마감",src:[3004]},
- {d:"2026-04-08",s:"롱",lev:25,e:66365.3,x:71781.6,roi:204.03,r:"익절",n:"2차 익절(03-27 진입 #3006)",src:[3007,3006]},
- {d:"2026-05-04",s:"롱",lev:25,e:68286,x:79994.8,roi:428.66,r:"익절",n:"3차 익절",src:[3036]},
- {d:"2026-05-07",s:"숏",lev:25,e:80754.7,x:79512,roi:38.47,r:"익절",n:"숏①(05-05 진입) 1차 익절 후 본절 이동",src:[3045,3040]},
- {d:"2026-05-13",s:"숏",lev:25,e:81999.9,x:79500.7,roi:76.19,r:"익절",n:"숏②(05-10경 진입) 1차 익절",src:[3080]},
- {d:"2026-05-17",s:"숏",lev:25,e:81999.9,x:75183.9,roi:207.80,r:"익절",n:"숏② 2차 익절",src:[3080]},
- {d:"2026-06-01",s:"롱",lev:25,e:73470.1,x:72203.7,roi:-43.09,r:"손절",n:"단기 롱(05-29 진입 #3091)",src:[3098,3091]},
- {d:"2026-06-04",s:"숏",lev:25,e:81999.9,x:65198.7,roi:512.23,r:"익절",n:"숏② 전량 청산",src:[3104]},
- {d:"2026-07-05",s:"롱",lev:25,e:59232,x:63032,roi:160.39,r:"익절",n:"1차 익절(07-04 진입 #3146)",src:[3169,3146]},
- {d:"2026-07-16",s:"롱",lev:25,e:59232,x:65528,roi:265.73,r:"익절",n:"2차 익절. 잔여는 본절 세팅 보유",src:[3196]},
- // ── 2025 ──
- {d:"2025-02-18",s:"롱",lev:10,e:2613.08,x:2815.66,roi:77.36,r:"익절",n:"이더리움 · MEXC 카드 인증",src:[2880]},
- {d:"2025-04-21",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"손절로 마감",src:[2900]},
- {d:"2025-04-22",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트코인 롱 2차 익절",src:[2901,2904]},
- {d:"2025-04-23",s:"숏",lev:20,e:94314.0,x:94188.6,roi:2.65,r:"익절",n:"Bitget 카드 인증",src:[2903]},
- {d:"2025-05-06",s:"롱",lev:20,e:93845.6,x:100580.7,roi:143.52,r:"익절",n:"BingX 카드(미실현 표기)",src:[2905]},
- {d:"2025-06-06",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"비트코인 손절",src:[2912]},
- {d:"2025-08-08",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"두 포지션 목표가 도달 후 분할 익절(이더 포함)",src:[2920]},
- {d:"2025-08-20",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"비트코인 손절 후 대기",src:[2924]},
- {d:"2025-08-22",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트코인 분할 익절",src:[2935]},
- {d:"2025-08-27",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"이더리움 분할 익절",src:[2938]},
- {d:"2025-09-17",s:"숏",lev:10,e:116519.5,x:116506.4,roi:0.11,r:"본절",n:"비트 숏 본절 마감 · 카드 인증",src:[2943]},
- {d:"2025-09-18",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"APX 현물 분할 익절(3년 보유·매수 대비 약 +2300% 구간)",src:[2946]},
- {d:"2025-10-04",s:"롱",lev:20,e:0.00008630,x:0.00011244,roi:605.79,r:"익절",n:"FLOKI · BingX 카드(미실현 표기)",src:[2960]},
- {d:"2025-10-17",s:"롱",lev:null,e:null,x:null,roi:null,r:"손절",n:"비트코인 롱 손절",src:[2965]},
- // ── 2024 ──
- {d:"2024-01-23",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"비트코인·이더리움 손절",src:[2639]},
- {d:"2024-07-25",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"손절로 마감",src:[2743]},
- {d:"2024-08-13",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트코인 분할 익절",src:[2760]},
- {d:"2024-08-18",s:"롱",lev:10,e:56938.7,x:60185.3,roi:57.34,r:"익절",n:"2차 분할익절 후 본절 로스 · Bitget 카드",src:[2765]},
- {d:"2024-09-04",s:"롱",lev:null,e:null,x:null,roi:null,r:"손절",n:"새벽에 잡은 비트코인 롱 손절",src:[2778,2780]},
- {d:"2024-09-20",s:"숏",lev:25,e:63825,x:62373.5,roi:56.85,r:"익절",n:"BingX 카드(미실현 표기)",src:[2803]},
- {d:"2024-09-22",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트 분할익절, 잔여 보유",src:[2805]},
- {d:"2024-10-31",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"손절로 마감",src:[2812]},
- {d:"2024-11-06",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트코인 롱 분할 익절",src:[2823]},
- {d:"2024-11-10",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"롱 분할 익절",src:[2829]},
- {d:"2024-11-21",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트코인 롱 익절가 전부 도달",src:[2833]},
- {d:"2024-12-05",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"분할 익절 후 본절 로스 설정",src:[2837]},
- {d:"2024-12-21",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"비트코인·이더리움 분할 익절",src:[2845]},
- // ── 2023 ──
- {d:"2023-04-04",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"WOO 1차 익절가 도착",src:[1973]},
- {d:"2023-05-19",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"1차 익절가 도착",src:[2135]},
- {d:"2023-05-24",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"손절로 마감",src:[2150]},
- {d:"2023-06-21",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"1차 익절가 도착 · LINA 2차 익절가 도착",src:[2257,2258]},
- {d:"2023-11-26",s:"숏",lev:null,e:null,x:null,roi:null,r:"본절",n:"보라색 박스 숏 본절",src:[2560,2562]},
- {d:"2023-12-06",s:"숏",lev:null,e:null,x:null,roi:null,r:"손절",n:"모으던 숏 손절",src:[2569]},
- {d:"2023-12-18",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"GMT(알트코인) 손절",src:[2593]},
- // ── 2022 (일일 매매 일기 시기 · 하루 1줄로 묶음) ──
- {d:"2022-09-03",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"TRB 단타 익절 · AVA 반익 · 8/31~9/3 기록 전부 익절",src:[104,109,111,115]},
- {d:"2022-09-04",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"익절 LINA·TLM·비트 박스권 단타 / 손절 아톰",src:[126,128,149]},
- {d:"2022-09-06",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 이클 롱·이더 숏 2회 / 손절 없음",src:[179,185,195]},
- {d:"2022-09-07",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"비트 숏 손절 · 이더 숏 짧게 먹고 본절 / 타겟가 1~6 도착",src:[221,239]},
- {d:"2022-09-08",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"손절 비트숏 / 익절 비트롱·이더숏·MASK·SPELL·COS·STMX",src:[253,264,270]},
- {d:"2022-09-09",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 MANA숏·RUNE숏·ANT숏·EOS롱·비트숏·ENS롱·RVN숏 / 손절 없음",src:[279,288,290,311,312]},
- {d:"2022-09-10",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 아발란체 롱 / 본절 HNT숏 / 손절 없음",src:[320]},
- {d:"2022-09-11",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 BLZ숏·GAL롱·존맛탱롱·루나2숏 / 손절 없음",src:[340,343,347,373]},
- {d:"2022-09-12",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 라코현물·GAL롱·샌박·솔라·JASMY롱·FIL숏 / 손절 없음",src:[382,384,391,398,400,422,426,430]},
- {d:"2022-09-13",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 REEF숏·솔라·스톰·이클롱·비트숏 / 본절 WOO / 손절 없음",src:[439,448,461,467,474,481]},
- {d:"2022-09-14",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",n:"익절 현물 7종+선물 5건 / 손절 루나2 롱·솔라나",src:[485,486,499,501,503,507,509,510,515,518,521,522,524,527]},
- {d:"2022-09-15",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 TRB숏·이더숏·OP숏 / TRB 반익반본 · OP숏 반익",src:[537,538,540,545,547,549,567]},
- {d:"2022-09-16",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 숏 에이다·폴카닷·니어·이클·아발란체·에이프 / 롱 GAL / 손절 없음",src:[602,628]},
- {d:"2022-09-17",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 현물 STX · 선물 링크·SKL·APE / 손절 없음 · APE 반익반본",src:[640,641,661,665,669,672]},
- {d:"2022-09-19",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 비트숏·이더숏·리플롱·비트롱·엑시롱 / EOS 이익실현 후 스탑로스",src:[698,701,712]},
- {d:"2022-09-20",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"익절 엘리스숏·비트숏 / 손절 없음",src:[718]},
- {d:"2022-09-21",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",n:"ALGO·AUDIO 익절",src:[736]},
+const T=id=>`https://t.me/REALchunbae/${id}`;
+/* real: 실현(청산 완료) / unreal: 카드가 미실현으로 표기 / text: 글로만 알린 결과 */
+const R=[
+ // 2026 · BingX 25배
+ {d:"2026-02-04",s:"롱",lev:25,e:74016.1,x:72931,roi:-36.65,r:"손절",k:"real",n:"거래소 카드 인증",src:[2997]},
+ {d:"2026-03-18",s:"숏",lev:null,e:null,x:null,roi:null,r:"본절",k:"text",n:"본절 로스로 마감",src:[3004]},
+ {d:"2026-04-08",s:"롱",lev:25,e:66365.3,x:71781.6,roi:204.03,r:"익절",k:"real",n:"2차 익절 · 03-27 진입",src:[3007,3006]},
+ {d:"2026-05-04",s:"롱",lev:25,e:68286,x:79994.8,roi:428.66,r:"익절",k:"real",n:"3차 익절",src:[3036]},
+ {d:"2026-05-07",s:"숏",lev:25,e:80754.7,x:79512,roi:38.47,r:"익절",k:"real",n:"숏① 1차 익절 후 손절을 진입가로",src:[3045,3040]},
+ {d:"2026-05-13",s:"숏",lev:25,e:81999.9,x:79500.7,roi:76.19,r:"익절",k:"real",n:"숏② 1차 익절",src:[3080]},
+ {d:"2026-05-17",s:"숏",lev:25,e:81999.9,x:75183.9,roi:207.80,r:"익절",k:"real",n:"숏② 2차 익절",src:[3080]},
+ {d:"2026-06-01",s:"롱",lev:25,e:73470.1,x:72203.7,roi:-43.09,r:"손절",k:"real",n:"단기 롱 · 05-29 진입",src:[3098,3091]},
+ {d:"2026-06-04",s:"숏",lev:25,e:81999.9,x:65198.7,roi:512.23,r:"익절",k:"real",n:"숏② 전량 청산",src:[3104]},
+ {d:"2026-07-05",s:"롱",lev:25,e:59232,x:63032,roi:160.39,r:"익절",k:"real",n:"1차 익절 · 07-04 진입",src:[3169,3146]},
+ {d:"2026-07-16",s:"롱",lev:25,e:59232,x:65528,roi:265.73,r:"익절",k:"real",n:"2차 익절 · 잔여는 본절 세팅 보유",src:[3196]},
+ // 2025
+ {d:"2025-02-17",s:"롱",lev:10,e:2613.08,x:2815.66,roi:77.36,r:"익절",k:"real",n:"이더리움 · MEXC 카드",src:[2880]},
+ {d:"2025-04-21",s:"숏",lev:20,e:84742.6,x:85319.8,roi:-13.62,r:"손절",k:"real",n:"Bitget 카드",src:[2900]},
+ {d:"2025-04-29",s:"숏",lev:20,e:94314.0,x:94188.6,roi:2.65,r:"익절",k:"real",n:"Bitget 카드",src:[2903]},
+ {d:"2025-05-04",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"비트코인 롱 2차 익절",src:[2904]},
+ {d:"2025-05-06",s:"롱",lev:20,e:93845.6,x:100580.7,roi:143.52,r:"익절",k:"unreal",n:"BingX 카드",src:[2905]},
+ {d:"2025-07-16",s:"롱",lev:25,e:116072.0,x:120000.0,roi:84.60,r:"익절",k:"real",n:"BitMart 카드 · 07-17 청산",src:[2924]},
+ {d:"2025-09-17",s:"숏",lev:10,e:116519.5,x:116506.4,roi:0.11,r:"본절",k:"unreal",n:"BingX 카드 · 사실상 본전",src:[2943]},
+ {d:"2025-09-18",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"APX 현물 분할 익절(3년 보유)",src:[2946]},
+ {d:"2025-10-04",s:"롱",lev:20,e:0.00008630,x:0.00011244,roi:605.79,r:"익절",k:"unreal",n:"FLOKI · BingX 카드",src:[2960]},
+ // 2024
+ {d:"2024-01-23",s:"—",lev:null,e:null,x:null,roi:null,r:"손절",k:"text",n:"비트코인·이더리움 손절",src:[2639]},
+ {d:"2024-08-13",s:"롱",lev:125,e:58835.00,x:60880.10,roi:419.93,r:"익절",k:"real",n:"Binance 카드 · 분할 익절 ※카드 표기(+419.93%)와 가격으로 계산한 값(+434.5%)이 조금 다릅니다. 수수료 차이로 보이며 카드 표기를 그대로 옮겼습니다",src:[2760]},
+ {d:"2024-08-18",s:"롱",lev:10,e:56938.7,x:60185.3,roi:57.34,r:"익절",k:"real",n:"Bitget 카드 · 2차 분할익절 후 본절",src:[2765]},
+ {d:"2024-09-04",s:"롱",lev:null,e:null,x:null,roi:null,r:"손절",k:"text",n:"새벽에 잡은 비트코인 롱 손절",src:[2778]},
+ {d:"2024-09-20",s:"숏",lev:25,e:63825,x:62373.5,roi:56.85,r:"익절",k:"unreal",n:"BingX 카드",src:[2803]},
+ {d:"2024-09-22",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"비트 분할익절, 잔여 보유",src:[2805]},
+ {d:"2024-11-06",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"비트코인 롱 분할 익절",src:[2823]},
+ {d:"2024-11-10",s:"롱",lev:15,e:75885.6,x:78861.5,roi:58.82,r:"익절",k:"unreal",n:"BingX 카드 · 롱 분할 익절",src:[2829]},
+ {d:"2024-11-21",s:"롱",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"익절가 전부 도달",src:[2833]},
+ {d:"2024-12-05",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"분할 익절 후 본절 로스",src:[2837]},
+ {d:"2024-12-21",s:"—",lev:null,e:null,x:null,roi:null,r:"익절",k:"text",n:"비트코인·이더리움 분할 익절",src:[2845]},
 ];
-
-/* 회원 인증 — 전달(Forwarded) 표시 또는 타인 계정 표기로 확인된 것 */
-const MEMBERS = [
- {d:"2022-09-04",w:"일기장 인원",n:"9/4 일기장 인원 익절 기록",src:[146]},
- {d:"2022-09-06",w:"매매방 인원",n:"9/6 매매방 인원 익절 인증(사진 6장)",src:[187]},
- {d:"2022-09-07",w:"일기장 인원",n:"9/7 일기장 사람들 수익 인증(사진 7장)",src:[202]},
- {d:"2023-01-22",w:"춘배 김(본인)",n:"전달 — 본인 계정에서 전달",src:[1873]},
- {d:"2023-02-23",w:"비트,이더",n:"전달",src:[1900]},
- {d:"2023-03-31",w:"jeong",n:"전달 — 회원 인증",src:[1959]},
- {d:"2023-06-29",w:"춘배 김(본인)",n:"전달 — 본인",src:[2266]},
- {d:"2024-02-09",w:"회원(mi***1)",n:"OCEAN 롱 50X +715.17% (평단 0.4020 → 0.4595)",src:[2659]},
- {d:"2024-02-14",w:"회원(mi***1)",n:"OCEAN 롱 50X +1273.63% (0.4020 → 0.5044)",src:[2664]},
- {d:"2024-03-11",w:"회원(mi***1)",n:"OCEAN 롱 50X +11082.08% (0.4020 → 1.2930)",src:[2672]},
- {d:"2024-04-18",w:"J",n:"전달 — 회원 인증",src:[2704]},
- {d:"2024-04-30",w:"춘배 김(본인)",n:"전달 — 본인",src:[2708]},
- {d:"2024-05-16",w:"쟤니",n:"전달 — 회원 인증",src:[2715]},
- {d:"2024-05-20",w:"삼냥이집사",n:"전달 — 회원 인증",src:[2719]},
- {d:"2024-05-31",w:"쟤니",n:"전달 — 회원 인증",src:[2723]},
- {d:"2024-06-30",w:"SOOHY",n:"전달 — 회원 인증",src:[2736]},
- {d:"2024-07-12",w:"삼냥이집사",n:"BitMart 롱 10X 35.68% (57,450 → 59,500)",src:[2741]},
- {d:"2024-08-29",w:"촉B 촉",n:"BingX 실현 롱 10X +28.74% (58,681.6 → 60,368.5)",src:[2770]},
- {d:"2024-08-30",w:"촉B 촉",n:"MEXC 실현 숏 30X +58.53% ($60,551 → $59,354)",src:[2772]},
- {d:"2024-09-04",w:"J",n:"Binance 롱 125x +404.10% (56,484.7 → 58,372.6)",src:[2779]},
- {d:"2024-09-09",w:"J",n:"전달 — 회원 인증",src:[2785]},
- {d:"2024-09-11",w:"Delet / 촉B 촉",n:"전달 — 회원 인증 2건",src:[2788,2790]},
- {d:"2024-09-13",w:"J",n:"전달 — 회원 인증",src:[2794]},
- {d:"2024-09-17",w:"J",n:"전달 — 회원 인증",src:[2797]},
- {d:"2024-09-19",w:"쟤니",n:"전달 — 회원 인증",src:[2802]},
- {d:"2024-10-01",w:"삼냥이집사",n:"전달 — 회원 인증",src:[2810]},
- {d:"2026-01-02",w:"쟤니",n:"전달 — 회원 인증",src:[2988]},
+const M=[
  {d:"2026-03-06",w:"쟤니",n:"BingX 숏 30X +142.88% (73,284.4 → 69,777.0 · 미실현)",src:[2999]},
+ {d:"2026-01-02",w:"쟤니",n:"전달 — 회원 인증",src:[2988]},
+ {d:"2024-10-01",w:"삼냥이집사",n:"전달 — 회원 인증",src:[2810]},
+ {d:"2024-09-19",w:"쟤니",n:"전달 — 회원 인증",src:[2802]},
+ {d:"2024-09-17",w:"J",n:"전달 — 회원 인증",src:[2797]},
+ {d:"2024-09-13",w:"J",n:"전달 — 회원 인증",src:[2794]},
+ {d:"2024-09-11",w:"Delet · 촉B 촉",n:"전달 — 회원 인증 2건",src:[2788,2790]},
+ {d:"2024-09-09",w:"J",n:"전달 — 회원 인증",src:[2785]},
+ {d:"2024-09-04",w:"J",n:"Binance 롱 125x +404.10% (56,484.7 → 58,372.6)",src:[2779]},
+ {d:"2024-08-30",w:"촉B 촉",n:"MEXC 숏 30X +58.53% 실현 ($60,551 → $59,354)",src:[2772]},
+ {d:"2024-08-29",w:"촉B 촉",n:"BingX 롱 10X +28.74% 실현 (58,681.6 → 60,368.5)",src:[2770]},
+ {d:"2024-07-12",w:"삼냥이집사",n:"BitMart 롱 10X 35.68% (57,450 → 59,500)",src:[2741]},
+ {d:"2024-06-30",w:"SOOHY",n:"전달 — 회원 인증",src:[2736]},
+ {d:"2024-05-31",w:"쟤니",n:"전달 — 회원 인증",src:[2723]},
+ {d:"2024-05-20",w:"삼냥이집사",n:"전달 — 회원 인증",src:[2719]},
+ {d:"2024-05-16",w:"쟤니",n:"전달 — 회원 인증",src:[2715]},
+ {d:"2024-04-18",w:"J",n:"전달 — 회원 인증",src:[2704]},
+ {d:"2024-03-11",w:"회원(mi***1)",n:"OCEAN 롱 50X +11082.08% (0.4020 → 1.2930)",src:[2672]},
+ {d:"2024-02-14",w:"회원(mi***1)",n:"OCEAN 롱 50X +1273.63% (0.4020 → 0.5044)",src:[2664]},
+ {d:"2024-02-09",w:"회원(mi***1)",n:"OCEAN 롱 50X +715.17% (0.4020 → 0.4595)",src:[2659]},
+ {d:"2023-03-31",w:"jeong",n:"전달 — 회원 인증",src:[1959]},
+ {d:"2022-09-07",w:"일기장 인원",n:"9/7 일기장 사람들 수익 인증 (사진 7장)",src:[202]},
+ {d:"2022-09-06",w:"매매방 인원",n:"9/6 매매방 인원 익절 인증 (사진 6장)",src:[187]},
+ {d:"2022-09-04",w:"일기장 인원",n:"9/4 일기장 인원 익절 기록",src:[146]},
 ];
-
-/* 미리 알렸던 매매 계획 — 원문 링크만 */
-const PLANS = [
- ["2023",[2006,2031,2067,2083,2105,2110,2122,2141,2156,2162,2181,2197,2276,2384,2400,2415,2507,2521,2525,2528,2551,2568,2602]],
- ["2024",[2607,2620,2630,2661,2707,2733,2739,2767,2775,2813,2817,2843,2850]],
- ["2025",[2895,2899,2902,2933,2937,2941,2942,2944,2957,2958]],
- ["2026",[3040,3045,3050,3146]],
-];
-
-const YEAR_NOTES = {
- "2026":"2월부터 거래소 화면 인증과 함께 진입가·청산가·수익률을 공개하기 시작했습니다. 본절은 이익도 손실도 아닌 진입가 부근 마감입니다.",
- "2025":"결과를 한 줄로 알리던 시기지만, 거래소 카드가 함께 올라온 날은 수치를 그대로 옮겼습니다.",
- "2024":"결과만 한 줄로 알리던 시기입니다. 이 해에 올라온 고배율 카드 대부분은 회원분들이 보내주신 것이라 아래 「회원 인증」으로 옮겼습니다.",
- "2023":"미리 목표가를 적어 두고 도착을 알리던 시기입니다. ‘도착’ 알림은 청산 보고로만 셌고, 계획 글은 아래 「미리 알렸던 매매 계획」에 링크로 두었습니다.",
- "2022":"매일 ‘매매 일기’로 여러 코인의 익절·손절을 코인 이름으로 기록하던 시기입니다. 같은 일기가 하루에 여러 번 다시 올라와 있어 하루 한 줄로 묶고, 그날 올라온 원문 링크를 전부 달았습니다. 거래별 수치는 당시 적지 않았습니다.",
+const NOTE={
+ "2026":"2월부터 거래소 화면 인증과 함께 진입가·청산가·수익률을 공개하기 시작했습니다. 전부 25배 거래입니다.",
+ "2025":"결과를 한 줄로 알리던 시기지만, 거래소 카드가 함께 올라온 날은 그 수치를 그대로 옮겼습니다.",
+ "2024":"결과만 한 줄로 알리던 시기입니다. 이 해에 올라온 고배율 카드 상당수는 회원분들이 보내주신 것이라 아래 「회원 인증」으로 옮겼습니다.",
  "all":""
 };
-const UPDATED = "2026-08-03";
+const UP="2026-08-03";
+const fmt=n=>n===null?"—":(Math.abs(n)<1?n.toString():n.toLocaleString("ko-KR",{maximumFractionDigits:1}));
+const mv=r=>(r.e===null||r.x===null)?null:(r.s==="숏"?(r.e-r.x)/r.e*100:(r.x-r.e)/r.e*100);
+const years=[...new Set(R.map(r=>r.d.slice(0,4)))].sort().reverse();
+let A="all";
+const sub=()=>A==="all"?R:R.filter(r=>r.d.startsWith(A));
 
-const fmt = n => n===null? "—" : (Math.abs(n)<1? n.toString() : n.toLocaleString("ko-KR",{maximumFractionDigits:1}));
-function move(r){ if(r.e===null||r.x===null) return null;
-  return r.s==="숏" ? (r.e-r.x)/r.e*100 : (r.x-r.e)/r.e*100; }
-const years=[...new Set(RECORDS.map(r=>r.d.slice(0,4)))].sort().reverse();
-let active="all";
-const subset=()=> active==="all"? RECORDS : RECORDS.filter(r=>r.d.startsWith(active));
-
-function renderSummary(){
-  const L=subset();
-  const w=L.filter(r=>r.r==="익절").length, l=L.filter(r=>r.r==="손절").length, f=L.filter(r=>r.r==="본절").length;
-  const movs=L.map(move).filter(v=>v!==null);
-  const span=movs.length? `${Math.min(...movs).toFixed(1)}% ~ ${Math.max(...movs).toFixed(1)}%` : "수치 없음";
-  const rate=(w+l)? (w/(w+l)*100).toFixed(0)+"%" : "—";
-  const levs=[...new Set(L.map(r=>r.lev).filter(v=>v))];
-  document.getElementById("sumScope").textContent= active==="all"? "— 전체 기간" : `— ${active}년`;
+function summary(){
+  const L=sub(), w=L.filter(r=>r.r==="익절").length, l=L.filter(r=>r.r==="손절").length, f=L.filter(r=>r.r==="본절").length;
+  const ms=L.map(mv).filter(v=>v!==null);
+  const span=ms.length?`${Math.min(...ms).toFixed(1)}% ~ ${Math.max(...ms).toFixed(1)}%`:"수치 없음";
+  const rate=(w+l)?(w/(w+l)*100).toFixed(0)+"%":"—";
+  const cards=L.filter(r=>r.roi!==null).length;
+  document.getElementById("sumScope").textContent=A==="all"?"— 전체":`— ${A}년`;
   document.getElementById("summary").innerHTML=`
-   <div class="card"><div class="k">청산 보고</div><div class="v">${w+l+f}건</div>
-     <div class="s">익절 ${w} · 손절 ${l}${f? " · 본절 "+f:""}</div></div>
-   <div class="card"><div class="k">익절 비율</div><div class="v">${rate}</div>
-     <div class="s">본절 제외 · 운영자 기록만</div></div>
-   <div class="card"><div class="k">배율</div><div class="v" style="font-size:17px">${levs.length? levs.sort((a,b)=>a-b).join("·")+"배":"기록 없음"}</div>
-     <div class="s">수치 공개분 기준</div></div>
-   <div class="card"><div class="k">가격이 움직인 폭</div><div class="v" style="font-size:16px">${span}</div>
-     <div class="s">수익률이 아니라 가격 기준</div></div>`;
-  document.getElementById("sumNote").textContent =
-   "나눠 판 경우 각 차수를 한 건으로 셌습니다. 2022년은 하루 단위 일기라 하루를 한 건으로 셌습니다. 회원 인증은 이 집계에 넣지 않았습니다.";
-  document.getElementById("updated").textContent =
-   "마지막 갱신 "+UPDATED+" · 채널 전체(메시지 1~3209, 실존 1,514개·사진 1,477장) 전수 재조사 · 수치 공개분 검산 9/9 일치";
+   <div class="box"><div class="k">청산 보고</div><div class="v">${w+l+f}건</div><div class="s">익절 ${w} · 손절 ${l}${f?" · 본절 "+f:""}</div></div>
+   <div class="box"><div class="k">익절 비율</div><div class="v">${rate}</div><div class="s">본절 제외</div></div>
+   <div class="box"><div class="k">수치 인증</div><div class="v">${cards}건</div><div class="s">거래소 화면 기준</div></div>
+   <div class="box"><div class="k">가격 변동 폭</div><div class="v" style="font-size:15px">${span}</div><div class="s">수익률 아닌 가격</div></div>`;
+  document.getElementById("sumNote").textContent="나눠 판 경우 각 차수를 한 건으로 셌습니다. 회원 인증은 이 집계에 넣지 않았습니다.";
+  document.getElementById("updated").textContent="마지막 갱신 "+UP+" · 채널 전체(메시지 1~3209 · 사진 1,477장) 전수 확인 · 수치 검산 완료";
 }
-function renderTabs(){
+function tabs(){
   const t=document.getElementById("tabs");
-  const mk=(id,label)=>`<button class="tab" role="tab" data-y="${id}" aria-selected="${active===id}">${label}</button>`;
+  const mk=(id,l)=>`<button class="tab" role="tab" data-y="${id}" aria-selected="${A===id}">${l}</button>`;
   t.innerHTML=mk("all","전체")+years.map(y=>mk(y,y+"년")).join("");
-  t.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{active=b.dataset.y;renderTabs();renderSummary();renderRows();});
+  t.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{A=b.dataset.y;tabs();summary();rows();});
 }
-const links = arr => arr.map(id=>`<a class="src" href="${T(id)}" target="_blank" rel="noopener">#${id}</a>`).join("");
-function renderRows(){
-  const note=YEAR_NOTES[active]||"";
-  const en=document.getElementById("eranote");
-  en.style.display=note?"":"none";
-  en.innerHTML=note?`<b>${active==="all"?"":active+"년 — "}</b>${note}`:"";
-  const L=subset().slice().sort((a,b)=>b.d.localeCompare(a.d));
-  const tb=document.getElementById("rows");
-  if(!L.length){ tb.innerHTML=`<tr><td colspan="6" class="empty">이 해에는 올린 청산 보고가 없습니다.</td></tr>`; return; }
-  tb.innerHTML=L.map(r=>{
-    const mv=move(r), win=r.r==="익절", flat=r.r==="본절";
-    const price=(r.e===null||r.x===null)? `<span class="note">${flat?"진입가 부근 마감":"수치 비공개"}</span>`
-      : `<span class="num">${fmt(r.e)} → ${fmt(r.x)}</span>`+(mv===null?"":`<div class="mv">가격 ${mv>=0?"+":""}${mv.toFixed(1)}%</div>`);
-    const roi=r.roi===null? (flat?`<span class="roi n">±0</span>`:`<span class="roi n">비공개</span>`)
-      : `<span class="roi ${win?"w":"l"}">${r.roi>0?"+":""}${r.roi.toFixed(2)}%</span>`+(r.lev?`<div class="mv">${r.lev}배</div>`:"");
-    return `<tr><td class="num">${r.d}</td><td><span class="tag side">${r.s}</span></td><td>${price}</td>
-      <td><span class="tag ${win?"win":(flat?"flat":"loss")}">${r.r}</span><div class="note">${r.n}</div></td>
-      <td>${roi}</td><td>${links(r.src)}</td></tr>`;}).join("");
+const lk=a=>a.map(id=>`<a class="src" href="${T(id)}" target="_blank" rel="noopener">#${id}</a>`).join("");
+function rows(){
+  const n=NOTE[A]||""; const en=document.getElementById("eranote");
+  en.style.display=n?"":"none"; en.innerHTML=n?`<b>${A==="all"?"":A+"년 — "}</b>${n}`:"";
+  const L=sub().slice().sort((a,b)=>b.d.localeCompare(a.d));
+  document.getElementById("rows").innerHTML=L.map(r=>{
+    const m=mv(r), up=r.r==="익절", ft=r.r==="본절";
+    const price=(r.e===null||r.x===null)?`<span class="note">${ft?"진입가 부근":"수치 없음"}</span>`
+      :`<span class="num">${fmt(r.e)} → ${fmt(r.x)}</span>`+(m===null?"":`<div class="mv">가격 ${m>=0?"+":""}${m.toFixed(1)}%</div>`);
+    const roi=r.roi===null?(ft?`<span class="roi n">±0</span>`:`<span class="roi n">미공개</span>`)
+      :`<span class="roi ${up?"u":"d"}">${r.roi>0?"+":""}${r.roi.toFixed(2)}%</span>`
+       +(r.k==="unreal"?`<div class="mv">미실현 표기</div>`:"");
+    return `<tr><td class="num">${r.d}</td>
+      <td><span class="tag t-sd">${r.s}${r.lev?" "+r.lev+"배":""}</span></td>
+      <td>${price}</td>
+      <td class="l"><span class="tag ${up?"t-up":(ft?"t-ft":"t-dn")}">${r.r}</span><div class="note">${r.n}</div></td>
+      <td>${roi}</td><td>${lk(r.src)}</td></tr>`;}).join("");
 }
-function renderMembers(){
-  document.getElementById("mrows").innerHTML = MEMBERS.slice().sort((a,b)=>b.d.localeCompare(a.d))
-   .map(m=>`<tr><td class="num">${m.d}</td><td>${m.w}</td><td class="note">${m.n}</td><td>${links(m.src)}</td></tr>`).join("");
-}
-function renderPlans(){
-  document.getElementById("planlist").innerHTML = PLANS.map(([y,ids])=>
-   `<b style="color:var(--ink)">${y}년</b> ${links(ids)}`).join("<br><br>");
-}
-renderTabs(); renderSummary(); renderRows(); renderMembers(); renderPlans();
+document.getElementById("mrows").innerHTML=M.map(m=>
+ `<tr><td class="num">${m.d}</td><td>${m.w}</td><td class="l note">${m.n}</td><td>${lk(m.src)}</td></tr>`).join("");
+tabs(); summary(); rows();
 </script>
 </body>
 </html>
