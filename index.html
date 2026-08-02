@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>춘배 매매 기록 — 익절도, 손절도</title>
+<meta name="description" content="2022년 채널 개설부터의 청산 보고를 하나도 빼지 않고 모았습니다. 수익률과 실제 가격 변동을 함께 적습니다.">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --line:#242c38;
+    --ink:#e6e3dc; --dim:#8b949e;
+    --gold:#c9a227; --gold-soft:#e0c05a;
+    --up:#3fb950; --down:#d9534f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+       line-height:1.7;-webkit-text-size-adjust:100%}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 18px 64px}
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:26px}
+  .brand{font-size:13px;letter-spacing:.18em;color:var(--gold);margin:0 0 10px}
+  h1{font-size:26px;margin:0 0 12px;font-weight:700;letter-spacing:-.01em}
+  .lead{color:var(--dim);font-size:15px;margin:0}
+  .notice{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);
+          border-radius:8px;padding:16px 18px;margin:24px 0;font-size:14.5px}
+  .notice b{color:var(--gold-soft)}
+  h2{font-size:17px;margin:34px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0 8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .card .k{font-size:12px;color:var(--dim);margin-bottom:6px}
+  .card .v{font-size:22px;font-weight:700;color:var(--gold-soft);letter-spacing:-.01em}
+  .card .s{font-size:12px;color:var(--dim);margin-top:4px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 14px}
+  .tab{background:var(--panel);border:1px solid var(--line);color:var(--dim);
+       border-radius:999px;padding:7px 16px;font-size:14px;cursor:pointer}
+  .tab[aria-selected="true"]{border-color:var(--gold);color:var(--gold-soft)}
+  .eranote{background:#12161c;border:1px solid var(--line);border-radius:8px;
+           padding:13px 16px;margin:0 0 14px;font-size:13.5px;color:var(--dim)}
+  .eranote b{color:var(--ink)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  thead th{text-align:left;color:var(--dim);font-weight:500;font-size:12.5px;
+           border-bottom:1px solid var(--line);padding:9px 8px;white-space:nowrap}
+  tbody td{border-bottom:1px solid var(--line);padding:11px 8px;vertical-align:top}
+  tbody tr:hover{background:#131922}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:5px;white-space:nowrap}
+  .tag.win{background:rgba(63,185,80,.12);color:var(--up);border:1px solid rgba(63,185,80,.3)}
+  .tag.loss{background:rgba(217,83,79,.12);color:var(--down);border:1px solid rgba(217,83,79,.3)}
+  .tag.side{background:#1b2330;color:var(--dim);border:1px solid var(--line)}
+  .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .roi{font-weight:700}
+  .roi.win{color:var(--up)} .roi.loss{color:var(--down)} .roi.na{color:var(--dim);font-weight:500}
+  .mv{color:var(--dim);font-size:12.5px}
+  .note{color:var(--dim);font-size:12.5px}
+  a.src{color:var(--gold);text-decoration:none;font-size:12.5px;border-bottom:1px dotted var(--gold)}
+  ul.plain{padding-left:18px;margin:10px 0}
+  ul.plain li{margin:7px 0}
+  .empty{color:var(--dim);padding:26px 8px;text-align:center;font-size:14px}
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+  .disc{background:#12161c;border:1px dashed var(--line);border-radius:8px;padding:14px 16px;margin-top:18px;font-size:13px}
+  @media (max-width:560px){
+    h1{font-size:21px}
+    thead th:nth-child(4),tbody td:nth-child(4){display:none}
+    .wrap{padding:20px 14px 52px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="brand">CHUNBAE · BTC</p>
+  <h1>매매 기록 — 익절도, 손절도</h1>
+  <p class="lead">2022년 채널을 연 날부터, 올렸던 청산 보고를 하나도 빼지 않고 모았습니다.</p>
+</header>
+
+<div class="notice">
+  <b>먼저 읽어 주세요.</b> 2026년 기록은 <b>25배</b>로 한 거래입니다.
+  25배는 가격이 1% 움직이면 손익이 25% 움직인다는 뜻입니다.
+  그래서 수익률 아래에 <b>실제 가격이 움직인 폭</b>을 같이 적었습니다.
+  이 둘을 함께 보셔야 오해가 없습니다.
+  2022~2025년 기록은 당시 수치를 적지 않아 결과만 남아 있습니다 — 그 사실까지 그대로 공개합니다.
+</div>
+
+<h2>한눈에 <span class="note" id="sumScope"></span></h2>
+<div class="sum" id="summary"></div>
+<p class="note" id="sumNote"></p>
+
+<h2>기록</h2>
+<div class="tabs" id="tabs" role="tablist"></div>
+<div class="eranote" id="eranote" style="display:none"></div>
+<table>
+  <thead>
+    <tr>
+      <th>날짜</th><th>방향</th><th>진입 → 청산</th><th>결과</th><th>수익률</th><th>원문</th>
+    </tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<h2>제가 지키는 것</h2>
+<ul class="plain">
+  <li>이긴 것만 골라 보여드리지 않습니다. 손절도 같은 표에 넣습니다.</li>
+  <li>배율을 항상 같이 적습니다. 2026년 인증 거래는 전부 25배였습니다.</li>
+  <li>익절은 대부분 한 번에 다 팔지 않고 나눠 팔았고, 1차 익절 뒤에는 손절을 진입가로 올려 두었습니다.</li>
+  <li>진행 중인 포지션의 매수가·목표가·손절가는 공개하지 않습니다. 따라 들어오시게 만들지 않으려는 것입니다.</li>
+</ul>
+
+<div class="disc">
+  높은 배율은 방향이 맞으면 크게 돌려주지만, 틀리면 그만큼 빠르게 무너집니다.
+  지난 결과가 다음 결과를 보장하지 않습니다. 저를 따라 하시기보다 각자의 기준을 세우시길 권합니다.<br>
+  ※ 정보 제공·교육 목적 · 투자 권유 아님. 판단과 책임은 본인에게 있습니다.
+</div>
+
+<footer>
+  <div id="updated"></div>
+  <div style="margin-top:6px">매매 일기장은 텔레그램에 · <a class="src" href="https://t.me/chunbae74">t.me/chunbae74</a></div>
+</footer>
+
+</div>
+
+<script>
+/* ─────────────────────────────────────────────
+   기록 데이터 — 여기에 한 줄씩 추가하면 표·탭·요약이 전부 자동 반영됩니다.
+   date  : "YYYY-MM-DD"
+   side  : "롱" | "숏" | "—"
+   lev   : 배율(숫자, 모르면 null)
+   entry : 진입가 (숫자, 모르면 null)
+   exit  : 청산가 (숫자, 모르면 null)
+   roi   : 표기 수익률(%) (숫자, 모르면 null)
+   result: "익절" | "손절"
+   note  : 비고(짧게)
+   src   : 원문 링크 (없으면 "")
+   ───────────────────────────────────────────── */
+const RECORDS = [
+  // ── 2026 (거래소 인증·수치 공개) ──
+  {date:"2026-02-04", side:"—", lev:null, entry:null,  exit:null,    roi:null,   result:"손절",
+   note:"손절로 마감. 수치는 당시 적지 않았습니다", src:""},
+  {date:"2026-04-08", side:"—", lev:null, entry:null,  exit:null,    roi:null,   result:"익절",
+   note:"2차 익절. 수치는 당시 적지 않았습니다", src:""},
+  {date:"2026-05-04", side:"롱", lev:25, entry:68286,   exit:79994.8, roi:428.66, result:"익절",
+   note:"3차 익절", src:"https://t.me/REALchunbae/3036"},
+  {date:"2026-05-07", side:"숏", lev:25, entry:80754.7, exit:79512,   roi:38.47,  result:"익절",
+   note:"숏 ①(05-05 진입) 1차 익절. 이후 손절을 진입가로 올림", src:"https://t.me/REALchunbae/3045"},
+  {date:"2026-05-13", side:"숏", lev:25, entry:81999.9, exit:79500.7, roi:76.19,  result:"익절",
+   note:"숏 ②(05-10경 진입) 1차 익절. 이후 손절을 진입가로 올림", src:""},
+  {date:"2026-05-17", side:"숏", lev:25, entry:81999.9, exit:75183.9, roi:207.80, result:"익절",
+   note:"숏 ② 2차 익절. 원문은 당시 시세 기준", src:"https://t.me/REALchunbae/3080"},
+  {date:"2026-06-01", side:"롱", lev:null, entry:null,  exit:null,    roi:null,   result:"손절",
+   note:"단기 롱. 05-29 진입 → 06-01 손절. 수치는 당시 적지 않았습니다", src:"https://t.me/REALchunbae/3098"},
+  {date:"2026-06-04", side:"숏", lev:25, entry:81999.9, exit:65198.7, roi:512.23, result:"익절",
+   note:"숏 ② 전량 청산", src:"https://t.me/REALchunbae/3104"},
+  {date:"2026-07-05", side:"롱", lev:25, entry:59232,   exit:63032,   roi:160.39, result:"익절",
+   note:"1차 익절", src:"https://t.me/REALchunbae/3169"},
+  {date:"2026-07-16", side:"롱", lev:25, entry:59232,   exit:65528,   roi:265.73, result:"익절",
+   note:"2차 익절 후 손절을 진입가로 올림", src:"https://t.me/REALchunbae/3196"},
+
+  // ── 2025 (한 줄 보고 시기 · 수치 없음) ──
+  {date:"2025-02-18", side:"—", lev:null, entry:null, exit:null, roi:null, result:"익절",
+   note:"분할 익절", src:""},
+  {date:"2025-04-21", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"손절로 마감", src:""},
+  {date:"2025-06-06", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"비트코인 손절", src:""},
+  {date:"2025-08-08", side:"—", lev:null, entry:null, exit:null, roi:null, result:"익절",
+   note:"두 포지션 모두 목표가 도달 후 분할 익절 완료(이더리움 포함)", src:""},
+  {date:"2025-08-20", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"비트코인 손절 후 다음 자리 대기", src:""},
+  {date:"2025-10-17", side:"롱", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"비트코인 롱 손절", src:""},
+
+  // ── 2024 (한 줄 보고 시기 · 수치 없음) ──
+  {date:"2024-07-25", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"손절로 마감", src:""},
+  {date:"2024-09-04", side:"롱", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"새벽에 잡은 비트코인 롱 손절", src:""},
+  {date:"2024-10-31", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"손절로 마감", src:""},
+
+  // ── 2023 (한 줄 보고 시기 · 수치 없음) ──
+  {date:"2023-05-24", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"손절로 마감", src:""},
+  {date:"2023-12-06", side:"숏", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"모으던 숏 손절", src:""},
+  {date:"2023-12-18", side:"—", lev:null, entry:null, exit:null, roi:null, result:"손절",
+   note:"GMT(알트코인) 손절", src:""},
+];
+
+/* 연도별 안내문 — 그 해 탭을 눌렀을 때 표 위에 표시됩니다 */
+const YEAR_NOTES = {
+  "2026": "2월부터 거래소 화면 인증과 함께 진입가·청산가·수익률을 공개하기 시작했습니다. 수치가 없는 건 당시 한 줄로만 알린 기록입니다.",
+  "2025": "이 해는 결과만 한 줄로 알리던 시기라 진입가·수익률 수치가 남아 있지 않습니다. 적힌 그대로만 올립니다.",
+  "2024": "이 해는 결과만 한 줄로 알리던 시기라 진입가·수익률 수치가 남아 있지 않습니다. 적힌 그대로만 올립니다.",
+  "2023": "이 해는 결과만 한 줄로 알리던 시기라 수치가 남아 있지 않습니다. 12월의 GMT는 비트코인이 아닌 알트코인 거래였습니다.",
+  "2022": "채널을 연 해입니다(2022-08-29). 이때는 매일 '매매 일기'로 여러 알트코인의 익절·손절을 코인 이름으로만 기록했고, 거래별 수치는 적지 않았습니다. 원문은 텔레그램 채널에서 '매매 일기'로 검색하면 그대로 볼 수 있습니다.",
+  "all": ""
+};
+
+const UPDATED = "2026-08-02";
+
+/* ── 이하 표시 로직 (수정 불필요) ── */
+const fmt = n => n === null ? "—" : n.toLocaleString("ko-KR", {maximumFractionDigits:1});
+function priceMove(r){
+  if(r.entry === null || r.exit === null) return null;
+  return r.side === "롱" ? (r.exit - r.entry) / r.entry * 100
+                         : (r.entry - r.exit) / r.entry * 100;
+}
+const years = [...new Set(RECORDS.map(r => r.date.slice(0,4)))].sort().reverse();
+if(!years.includes("2022")) years.push("2022");
+let active = "all";
+
+function subset(){
+  return active === "all" ? RECORDS : RECORDS.filter(r => r.date.startsWith(active));
+}
+
+function renderSummary(){
+  const list = subset();
+  const win  = list.filter(r => r.result === "익절").length;
+  const loss = list.filter(r => r.result === "손절").length;
+  const total = win + loss;
+  const movs = list.map(priceMove).filter(v => v !== null);
+  const span = movs.length ? `${Math.min(...movs).toFixed(1)}% ~ ${Math.max(...movs).toFixed(1)}%` : "수치 없음";
+  const rate = total ? (win / total * 100).toFixed(0) + "%" : "—";
+  const levs = [...new Set(list.map(r=>r.lev).filter(v=>v!==null))];
+  const levTxt = levs.length===1 ? levs[0]+"배" : (levs.length===0 ? "기록 없음" : levs.join("·")+"배");
+  document.getElementById("sumScope").textContent = active==="all" ? "— 전체 기간" : `— ${active}년`;
+  document.getElementById("summary").innerHTML = `
+    <div class="card"><div class="k">청산 보고</div><div class="v">${total}건</div>
+      <div class="s">익절 ${win} · 손절 ${loss}</div></div>
+    <div class="card"><div class="k">익절 비율</div><div class="v">${rate}</div>
+      <div class="s">채널에 올린 보고 기준</div></div>
+    <div class="card"><div class="k">배율</div><div class="v" style="font-size:18px">${levTxt}</div>
+      <div class="s">수치 공개분 기준</div></div>
+    <div class="card"><div class="k">가격이 움직인 폭</div><div class="v" style="font-size:17px">${span}</div>
+      <div class="s">수익률이 아니라 가격 기준</div></div>`;
+  document.getElementById("sumNote").textContent =
+    active==="all"
+    ? "나눠 팔은 경우 각 차수를 한 건으로 셌습니다. 2022년 일일 매매 일기(코인별 목록)는 형식이 달라 이 집계에 넣지 않았습니다 — 2022 탭에서 안내를 확인하세요."
+    : "나눠 팔은 경우 각 차수를 한 건으로 셌습니다.";
+  document.getElementById("updated").textContent = "마지막 갱신 " + UPDATED;
+}
+
+function renderTabs(){
+  const t = document.getElementById("tabs");
+  const mk = (id, label) =>
+    `<button class="tab" role="tab" data-y="${id}" aria-selected="${active===id}">${label}</button>`;
+  t.innerHTML = mk("all","전체") + years.map(y => mk(y, y + "년")).join("");
+  t.querySelectorAll(".tab").forEach(b => b.onclick = () => {
+    active = b.dataset.y; renderTabs(); renderSummary(); renderRows();
+  });
+}
+
+function renderRows(){
+  const note = YEAR_NOTES[active] || "";
+  const en = document.getElementById("eranote");
+  en.style.display = note ? "" : "none";
+  en.innerHTML = note ? `<b>${active==="all"?"":active+"년 — "}</b>${note}` : "";
+
+  const list = subset().slice().sort((a,b) => b.date.localeCompare(a.date));
+  const tb = document.getElementById("rows");
+  if(!list.length){
+    tb.innerHTML = `<tr><td colspan="6" class="empty">${active==="2022"
+      ? "이 해의 기록은 위 안내처럼 일일 매매 일기 형식입니다."
+      : "이 해에는 올린 청산 보고가 없습니다."}</td></tr>`;
+    return;
+  }
+  tb.innerHTML = list.map(r => {
+    const mv = priceMove(r);
+    const win = r.result === "익절";
+    const price = (r.entry === null || r.exit === null)
+      ? `<span class="note">수치 비공개</span>`
+      : `<span class="num">${fmt(r.entry)} → ${fmt(r.exit)}</span>` +
+        (mv === null ? "" : `<div class="mv">가격 ${mv >= 0 ? "+" : ""}${mv.toFixed(1)}%</div>`);
+    const roi = r.roi === null
+      ? `<span class="roi na">비공개</span>`
+      : `<span class="roi ${win ? "win" : "loss"}">${win ? "+" : ""}${r.roi.toFixed(2)}%</span>` +
+        (r.lev ? `<div class="mv">${r.lev}배</div>` : "");
+    return `<tr>
+      <td class="num">${r.date}</td>
+      <td><span class="tag side">${r.side}</span></td>
+      <td>${price}</td>
+      <td><span class="tag ${win ? "win" : "loss"}">${r.result}</span>
+          <div class="note">${r.note || ""}</div></td>
+      <td>${roi}</td>
+      <td>${r.src ? `<a class="src" href="${r.src}" target="_blank" rel="noopener">보기</a>` : ""}</td>
+    </tr>`;
+  }).join("");
+}
+
+renderTabs(); renderSummary(); renderRows();
+</script>
+</body>
+</html>
