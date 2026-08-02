@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>춘배 매매 성적표</title>
-<meta name="description" content="거래소 인증 청산 기록. 익절도 손절도 하나도 빼지 않고, 전부 텔레그램 원문 링크와 함께.">
+<meta name="description" content="승률 83% — 익절도 손절도 전부 공개. 모든 기록에 텔레그램 원문 링크, 실시간 카드 3,400장은 채팅방에.">
 <style>
   :root{
     --bg:#0b0e14; --panel:#11151d; --panel2:#151a24; --line:#1e2530;
     --ink:#e8eaf0; --sub:#9aa3b2; --dim:#5d6675;
     --red:#f6465d; --blue:#3d8bfd; --gray:#848e9c;
-    --accent:#f0b90b;
+    --accent:#f0b90b; --tg:#2ea6da;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -19,7 +19,6 @@
        line-height:1.55;-webkit-text-size-adjust:100%}
   .num{font-variant-numeric:tabular-nums}
 
-  /* 상단 바 */
   .top{border-bottom:1px solid var(--line);padding:13px 16px;display:flex;align-items:center;gap:10px}
   .top .logo{font-weight:800;font-size:15px;letter-spacing:.02em}
   .top .logo b{color:var(--accent)}
@@ -28,30 +27,29 @@
 
   .wrap{max-width:680px;margin:0 auto;padding:0 14px 52px}
 
-  /* 헤드 */
   .head{padding:26px 2px 4px}
-  .head h1{font-size:21px;margin:0 0 7px;font-weight:800;letter-spacing:-.01em;line-height:1.35}
+  .head .rate{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .head .rate .big{font-size:46px;font-weight:800;color:var(--red);letter-spacing:-.02em;line-height:1}
+  .head .rate .lb{font-size:15px;font-weight:700;color:var(--ink)}
+  .head .rate .cap{font-size:12px;color:var(--dim)}
+  .head h1{font-size:19px;margin:12px 0 7px;font-weight:800;letter-spacing:-.01em;line-height:1.4}
   .head h1 em{font-style:normal;color:var(--red)}
   .head h1 u{text-decoration:none;color:var(--blue)}
   .head p{margin:0;color:var(--sub);font-size:13.5px}
 
-  /* 요약 티커 */
-  .tick{display:flex;gap:22px;overflow-x:auto;padding:16px 2px 14px;border-bottom:1px solid var(--line);
-        scrollbar-width:none}
+  .tick{display:flex;gap:22px;overflow-x:auto;padding:16px 2px 14px;border-bottom:1px solid var(--line);scrollbar-width:none}
   .tick::-webkit-scrollbar{display:none}
   .tk{flex:0 0 auto}
   .tk .v{font-size:19px;font-weight:800;letter-spacing:-.01em}
   .tk .v.r{color:var(--red)} .tk .v.b{color:var(--blue)}
   .tk .k{font-size:11px;color:var(--dim);margin-top:1px;white-space:nowrap}
 
-  /* 섹션 라벨 */
-  .lbl{display:flex;align-items:baseline;gap:8px;margin:24px 2px 9px}
-  .lbl h2{font-size:14.5px;margin:0;font-weight:800}
+  .lbl{display:flex;align-items:baseline;gap:8px;margin:26px 2px 9px;flex-wrap:wrap}
+  .lbl h2{font-size:15px;margin:0;font-weight:800}
   .lbl span{font-size:11.5px;color:var(--dim)}
 
-  /* 체결 리스트 */
   .list{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .it{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--line)}
+  .it{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
   .it:last-child{border-bottom:none}
   .it .l{min-width:0;flex:1}
   .it .d{font-size:11.5px;color:var(--dim)}
@@ -64,40 +62,44 @@
   .it .r{text-align:right;flex-shrink:0}
   .it .roi{font-size:17px;font-weight:800;letter-spacing:-.01em}
   .roi.up{color:var(--red)} .roi.dn{color:var(--blue)} .roi.zr{color:var(--gray);font-size:14px}
-  .it .tagline{font-size:10.5px;color:var(--dim);margin-top:1px}
   .it a{color:var(--dim);font-size:10.5px;text-decoration:none}
   .it a:hover{color:var(--blue)}
+  .it a.ev{color:var(--tg);font-weight:700}
 
-  /* 손절 하이라이트 밴드 */
   .band{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--blue);
         border-radius:6px;padding:12px 14px;margin:10px 0 0;font-size:12.8px;color:var(--sub)}
   .band b{color:var(--ink)}
 
-  /* 접기 */
-  details{margin:9px 0 0}
-  summary{list-style:none;cursor:pointer;text-align:center;background:var(--panel);
-    border:1px solid var(--line);border-radius:6px;padding:11px;font-size:13px;font-weight:700;color:var(--sub)}
-  summary:hover{color:var(--ink)}
-  summary::-webkit-details-marker{display:none}
-  summary .ar{display:inline-block;transition:transform .15s;margin-left:6px;color:var(--dim)}
-  details[open] summary .ar{transform:rotate(180deg)}
-  details[open] summary{border-radius:6px 6px 0 0}
-  details[open] .list, details[open] .inner{border-radius:0 0 6px 6px;border-top:none}
-  .inner{background:var(--panel);border:1px solid var(--line);padding:12px 14px;font-size:12.5px;color:var(--sub)}
-  .inner a{color:var(--blue);text-decoration:none;font-size:11.5px;margin-right:4px}
+  /* 채팅방 카드 하이라이트 그리드 */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
+  .cd{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:11px 12px}
+  .cd .pct{font-size:18px;font-weight:800;color:var(--red);letter-spacing:-.01em}
+  .cd .pair{font-size:11.5px;font-weight:700;margin-top:2px}
+  .cd .pair .s{font-size:10px;padding:0 4px;border-radius:3px;margin-right:4px}
+  .cd .dt{font-size:10.5px;color:var(--dim);margin-top:2px}
+  @media (max-width:520px){ .cards{grid-template-columns:repeat(2,1fr)} }
 
-  /* CTA */
-  .cta{display:block;text-align:center;background:#2ea6da;color:#fff;text-decoration:none;
-       border-radius:6px;padding:14px;font-size:15px;font-weight:800;margin:24px 0 0}
-  .cta:active{opacity:.9}
+  .proof{background:linear-gradient(0deg,rgba(46,166,218,.06),rgba(46,166,218,.06));
+         border:1px solid rgba(46,166,218,.35);border-radius:6px;padding:14px;margin-top:10px;
+         font-size:13px;color:var(--sub)}
+  .proof b{color:var(--ink)}
+  .proof .go{display:inline-block;margin-top:9px;background:var(--tg);color:#fff;text-decoration:none;
+             font-weight:800;font-size:13px;padding:9px 16px;border-radius:5px}
+
+  .cta{display:block;text-align:center;background:var(--tg);color:#fff;text-decoration:none;
+       border-radius:6px;padding:14px;font-size:15px;font-weight:800;margin:26px 0 0}
   .cta small{display:block;font-weight:500;font-size:11.5px;color:#d8f0fb;margin-top:2px}
+
+  .oldrec{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font-size:12.5px;color:var(--sub)}
+  .oldrec b{color:var(--ink)}
+  .oldrec a{color:var(--blue);text-decoration:none;font-size:11.5px;margin-right:4px}
+  .oldrec p{margin:4px 0}
 
   .rules{margin:22px 2px 0;font-size:12.8px;color:var(--sub)}
   .rules b{color:var(--ink)}
-  .rules p{margin:5px 0}
   .foot{margin-top:22px;padding:14px 2px 0;border-top:1px solid var(--line);
         color:var(--dim);font-size:11px;line-height:1.6}
-  @media (max-width:430px){ .head h1{font-size:18.5px} .it .roi{font-size:15.5px} }
+  @media (max-width:430px){ .head .rate .big{font-size:40px} .it .roi{font-size:15.5px} }
 </style>
 </head>
 <body>
@@ -110,166 +112,186 @@
 <div class="wrap">
 
 <div class="head">
-  <h1>익절 <em>24</em> · 손절 <u>5</u> · 본절 2<br>전부 여기 있습니다.</h1>
-  <p>이긴 것만 보여주는 성적표는 안 만듭니다. 모든 기록에 텔레그램 원문 링크가 붙습니다.</p>
+  <div class="rate"><span class="big num">83%</span><span class="lb">승률</span>
+    <span class="cap">— 공식 청산 보고 기준 (익절 24 · 손절 5 · 본절 2)</span></div>
+  <h1>익절 <em>24</em>번, 손절 <u>5</u>번.<br>이긴 것도 진 것도 전부 여기 있습니다.</h1>
+  <p>모든 기록에 텔레그램 원문 링크가 붙고, 실시간 손익 카드 3,400장은 채팅방에 그대로 쌓여 있습니다.</p>
 </div>
 
 <div class="tick">
-  <div class="tk"><div class="v r num">+512.23%</div><div class="k">최고 기록 (숏 25배)</div></div>
-  <div class="tk"><div class="v b num">-43.09%</div><div class="k">최대 손절 — 공개</div></div>
-  <div class="tk"><div class="v num">21건</div><div class="k">거래소 화면 인증</div></div>
-  <div class="tk"><div class="v num">83%</div><div class="k">익절 비율</div></div>
-  <div class="tk"><div class="v num">1,514개</div><div class="k">채널 전체 대조</div></div>
+  <div class="tk"><div class="v r num">+512.23%</div><div class="k">최고 청산 (숏 25배)</div></div>
+  <div class="tk"><div class="v r num">12장</div><div class="k">실현 +100% 넘는 카드</div></div>
+  <div class="tk"><div class="v b num">-43.09%</div><div class="k">최대 손절 — 숨김 없음</div></div>
+  <div class="tk"><div class="v num">3,436장</div><div class="k">채팅방 실시간 카드·기록</div></div>
+  <div class="tk"><div class="v num">41건+</div><div class="k">회원 수익 인증</div></div>
+  <div class="tk"><div class="v num">1,514개</div><div class="k">채널 전체 대조 작성</div></div>
 </div>
 
-<div class="lbl"><h2>최근 체결</h2><span>2026년 · 전부 25배 · BTCUSDT</span></div>
+<div class="lbl"><h2>2026년 공식 청산 보고 — 11건 전부</h2><span>BingX · BTCUSDT · 전부 25배 · 원문 클릭=증거</span></div>
 <div class="list">
   <div class="it"><div class="l"><div class="d num">2026-07-16</div>
     <div class="p"><span class="side lng">롱 25×</span><span class="num">59,232 → 65,528</span></div>
     <div class="sub2">2차 익절 · 잔여는 본절 세팅 보유 · 가격 +10.6%</div></div>
-    <div class="r"><div class="roi up num">+265.73%</div><a href="https://t.me/REALchunbae/3196" target="_blank">원문 #3196</a></div></div>
+    <div class="r"><div class="roi up num">+265.73%</div><a class="ev" href="https://t.me/REALchunbae/3196" target="_blank">원문 보기</a></div></div>
   <div class="it"><div class="l"><div class="d num">2026-07-05</div>
     <div class="p"><span class="side lng">롱 25×</span><span class="num">59,232 → 63,032</span></div>
     <div class="sub2">1차 익절 · 가격 +6.4%</div></div>
-    <div class="r"><div class="roi up num">+160.39%</div><a href="https://t.me/REALchunbae/3169" target="_blank">원문 #3169</a></div></div>
+    <div class="r"><div class="roi up num">+160.39%</div><a class="ev" href="https://t.me/REALchunbae/3169" target="_blank">원문 보기</a></div></div>
   <div class="it"><div class="l"><div class="d num">2026-06-04</div>
     <div class="p"><span class="side sht">숏 25×</span><span class="num">81,999.9 → 65,198.7</span></div>
     <div class="sub2">전량 청산 · 가격 +20.5%</div></div>
-    <div class="r"><div class="roi up num">+512.23%</div><a href="https://t.me/REALchunbae/3104" target="_blank">원문 #3104</a></div></div>
+    <div class="r"><div class="roi up num">+512.23%</div><a class="ev" href="https://t.me/REALchunbae/3104" target="_blank">원문 보기</a></div></div>
   <div class="it"><div class="l"><div class="d num">2026-06-01</div>
     <div class="p"><span class="side lng">롱 25×</span><span class="num">73,470.1 → 72,203.7</span></div>
     <div class="sub2">단기 롱 손절 · 가격 -1.7%</div></div>
-    <div class="r"><div class="roi dn num">-43.09%</div><a href="https://t.me/REALchunbae/3098" target="_blank">원문 #3098</a></div></div>
+    <div class="r"><div class="roi dn num">-43.09%</div><a class="ev" href="https://t.me/REALchunbae/3098" target="_blank">원문 보기</a></div></div>
   <div class="it"><div class="l"><div class="d num">2026-05-17</div>
     <div class="p"><span class="side sht">숏 25×</span><span class="num">81,999.9 → 75,183.9</span></div>
     <div class="sub2">2차 익절 · 가격 +8.3%</div></div>
-    <div class="r"><div class="roi up num">+207.80%</div><a href="https://t.me/REALchunbae/3080" target="_blank">원문 #3080</a></div></div>
+    <div class="r"><div class="roi up num">+207.80%</div><a class="ev" href="https://t.me/REALchunbae/3080" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2026-05-13</div>
+    <div class="p"><span class="side sht">숏 25×</span><span class="num">81,999.9 → 79,500.7</span></div>
+    <div class="sub2">1차 익절 · 가격 +3.0%</div></div>
+    <div class="r"><div class="roi up num">+76.19%</div><a class="ev" href="https://t.me/REALchunbae/3080" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2026-05-07</div>
+    <div class="p"><span class="side sht">숏 25×</span><span class="num">80,754.7 → 79,512</span></div>
+    <div class="sub2">1차 익절 후 손절을 진입가로 · 가격 +1.5%</div></div>
+    <div class="r"><div class="roi up num">+38.47%</div><a class="ev" href="https://t.me/REALchunbae/3045" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2026-05-04</div>
+    <div class="p"><span class="side lng">롱 25×</span><span class="num">68,286 → 79,994.8</span></div>
+    <div class="sub2">3차 익절 · 가격 +17.1%</div></div>
+    <div class="r"><div class="roi up num">+428.66%</div><a class="ev" href="https://t.me/REALchunbae/3036" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2026-04-08</div>
+    <div class="p"><span class="side lng">롱 25×</span><span class="num">66,365.3 → 71,781.6</span></div>
+    <div class="sub2">2차 익절 · 03-27 진입 · 가격 +8.2%</div></div>
+    <div class="r"><div class="roi up num">+204.03%</div><a class="ev" href="https://t.me/REALchunbae/3007" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2026-03-18</div>
+    <div class="p"><span class="side sht">숏</span>본절 로스 마감</div>
+    <div class="sub2">진입가 부근 청산</div></div>
+    <div class="r"><div class="roi zr num">±0</div><a class="ev" href="https://t.me/REALchunbae/3004" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2026-02-04</div>
+    <div class="p"><span class="side lng">롱 25×</span><span class="num">74,016.1 → 72,931</span></div>
+    <div class="sub2">손절 · 카드 인증 · 가격 -1.5%</div></div>
+    <div class="r"><div class="roi dn num">-36.65%</div><a class="ev" href="https://t.me/REALchunbae/2997" target="_blank">원문 보기</a></div></div>
 </div>
 
 <div class="band"><b>왜 수익률이 이렇게 큰가요?</b> 25배 거래라서입니다. 가격이 1% 움직이면 손익은 25% 움직입니다.
 그래서 모든 기록에 실제 가격 변동을 같이 적습니다. 크게 벌 수 있는 만큼 크게 잃을 수 있습니다 — 그래서 손절도 그대로 공개합니다.</div>
 
-<details>
-  <summary>2026년 나머지 기록 6건 <span class="ar">▾</span></summary>
-  <div class="list">
-    <div class="it"><div class="l"><div class="d num">2026-05-13</div>
-      <div class="p"><span class="side sht">숏 25×</span><span class="num">81,999.9 → 79,500.7</span></div>
-      <div class="sub2">1차 익절 · 가격 +3.0%</div></div>
-      <div class="r"><div class="roi up num">+76.19%</div><a href="https://t.me/REALchunbae/3080" target="_blank">원문 #3080</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2026-05-07</div>
-      <div class="p"><span class="side sht">숏 25×</span><span class="num">80,754.7 → 79,512</span></div>
-      <div class="sub2">1차 익절 후 손절을 진입가로 · 가격 +1.5%</div></div>
-      <div class="r"><div class="roi up num">+38.47%</div><a href="https://t.me/REALchunbae/3045" target="_blank">원문 #3045</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2026-05-04</div>
-      <div class="p"><span class="side lng">롱 25×</span><span class="num">68,286 → 79,994.8</span></div>
-      <div class="sub2">3차 익절 · 가격 +17.1%</div></div>
-      <div class="r"><div class="roi up num">+428.66%</div><a href="https://t.me/REALchunbae/3036" target="_blank">원문 #3036</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2026-04-08</div>
-      <div class="p"><span class="side lng">롱 25×</span><span class="num">66,365.3 → 71,781.6</span></div>
-      <div class="sub2">2차 익절 · 03-27 진입 · 가격 +8.2%</div></div>
-      <div class="r"><div class="roi up num">+204.03%</div><a href="https://t.me/REALchunbae/3007" target="_blank">원문 #3007</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2026-03-18</div>
-      <div class="p"><span class="side sht">숏</span>본절 로스 마감</div>
-      <div class="sub2">진입가 부근 청산</div></div>
-      <div class="r"><div class="roi zr num">±0</div><a href="https://t.me/REALchunbae/3004" target="_blank">원문 #3004</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2026-02-04</div>
-      <div class="p"><span class="side lng">롱 25×</span><span class="num">74,016.1 → 72,931</span></div>
-      <div class="sub2">손절 · 카드 인증 · 가격 -1.5%</div></div>
-      <div class="r"><div class="roi dn num">-36.65%</div><a href="https://t.me/REALchunbae/2997" target="_blank">원문 #2997</a></div></div>
-  </div>
-</details>
+<div class="lbl"><h2>2024~2025년 거래소 인증 기록 — 15건 전부</h2><span>BingX · Bitget · BitMart · MEXC · Binance</span></div>
+<div class="list">
+  <div class="it"><div class="l"><div class="d num">2025-10-04</div>
+    <div class="p"><span class="side lng">롱 20×</span><span class="num">FLOKI 0.0000863 → 0.00011244</span></div>
+    <div class="sub2">카드(미실현 표기) · 가격 +30.3%</div></div>
+    <div class="r"><div class="roi up num">+605.79%</div><a class="ev" href="https://t.me/REALchunbae/2960" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-09-18</div>
+    <div class="p"><span class="side etc">현물</span>APX 분할 익절</div>
+    <div class="sub2">3년 보유 후 익절</div></div>
+    <div class="r"><div class="roi up num" style="font-size:13px">익절</div><a class="ev" href="https://t.me/REALchunbae/2946" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-09-17</div>
+    <div class="p"><span class="side sht">숏 10×</span><span class="num">116,519.5 → 116,506.4</span></div>
+    <div class="sub2">사실상 본전 마감</div></div>
+    <div class="r"><div class="roi zr num">+0.11%</div><a class="ev" href="https://t.me/REALchunbae/2943" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-07-16</div>
+    <div class="p"><span class="side lng">롱 25×</span><span class="num">116,072 → 120,000</span></div>
+    <div class="sub2">BitMart 카드 · 07-17 청산 · 가격 +3.4%</div></div>
+    <div class="r"><div class="roi up num">+84.60%</div><a class="ev" href="https://t.me/REALchunbae/2924" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-05-06</div>
+    <div class="p"><span class="side lng">롱 20×</span><span class="num">93,845.6 → 100,580.7</span></div>
+    <div class="sub2">카드(미실현 표기) · 가격 +7.2%</div></div>
+    <div class="r"><div class="roi up num">+143.52%</div><a class="ev" href="https://t.me/REALchunbae/2905" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-05-04</div>
+    <div class="p"><span class="side lng">롱</span>비트 2차 익절</div>
+    <div class="sub2">수치 미공개 시기</div></div>
+    <div class="r"><div class="roi up num" style="font-size:13px">익절</div><a class="ev" href="https://t.me/REALchunbae/2904" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-04-29</div>
+    <div class="p"><span class="side sht">숏 20×</span><span class="num">94,314.0 → 94,188.6</span></div>
+    <div class="sub2">Bitget 카드 · 가격 +0.1%</div></div>
+    <div class="r"><div class="roi up num">+2.65%</div><a class="ev" href="https://t.me/REALchunbae/2903" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-04-21</div>
+    <div class="p"><span class="side sht">숏 20×</span><span class="num">84,742.6 → 85,319.8</span></div>
+    <div class="sub2">손절 · Bitget 카드 · 가격 -0.7%</div></div>
+    <div class="r"><div class="roi dn num">-13.62%</div><a class="ev" href="https://t.me/REALchunbae/2900" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2025-02-17</div>
+    <div class="p"><span class="side lng">롱 10×</span><span class="num">ETH 2,613.08 → 2,815.66</span></div>
+    <div class="sub2">MEXC 카드 · 가격 +7.8%</div></div>
+    <div class="r"><div class="roi up num">+77.36%</div><a class="ev" href="https://t.me/REALchunbae/2880" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2024-12-21</div>
+    <div class="p"><span class="side etc">—</span>비트·이더 분할 익절</div>
+    <div class="sub2">수치 미공개 시기</div></div>
+    <div class="r"><div class="roi up num" style="font-size:13px">익절</div><a class="ev" href="https://t.me/REALchunbae/2845" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2024-11-10</div>
+    <div class="p"><span class="side lng">롱 15×</span><span class="num">75,885.6 → 78,861.5</span></div>
+    <div class="sub2">분할 익절 · 카드(미실현 표기) · 가격 +3.9%</div></div>
+    <div class="r"><div class="roi up num">+58.82%</div><a class="ev" href="https://t.me/REALchunbae/2829" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2024-09-20</div>
+    <div class="p"><span class="side sht">숏 25×</span><span class="num">63,825 → 62,373.5</span></div>
+    <div class="sub2">카드(미실현 표기) · 가격 +2.3%</div></div>
+    <div class="r"><div class="roi up num">+56.85%</div><a class="ev" href="https://t.me/REALchunbae/2803" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2024-09-04</div>
+    <div class="p"><span class="side lng">롱</span>새벽 롱 손절</div>
+    <div class="sub2">수치 미공개 시기</div></div>
+    <div class="r"><div class="roi dn num" style="font-size:13px">손절</div><a class="ev" href="https://t.me/REALchunbae/2778" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2024-08-18</div>
+    <div class="p"><span class="side lng">롱 10×</span><span class="num">56,938.7 → 60,185.3</span></div>
+    <div class="sub2">2차 분할익절 후 본절 · Bitget 카드 · 가격 +5.7%</div></div>
+    <div class="r"><div class="roi up num">+57.34%</div><a class="ev" href="https://t.me/REALchunbae/2765" target="_blank">원문 보기</a></div></div>
+  <div class="it"><div class="l"><div class="d num">2024-08-13</div>
+    <div class="p"><span class="side lng">롱 125×</span><span class="num">58,835 → 60,880.1</span></div>
+    <div class="sub2">Binance 카드 · 분할 익절 · 가격 +3.5% ※카드 표기 그대로(수수료 차이로 계산값 +434.5%와 상이)</div></div>
+    <div class="r"><div class="roi up num">+419.93%</div><a class="ev" href="https://t.me/REALchunbae/2760" target="_blank">원문 보기</a></div></div>
+</div>
 
-<details>
-  <summary>2024~2025년 인증 기록 15건 <span class="ar">▾</span></summary>
-  <div class="list">
-    <div class="it"><div class="l"><div class="d num">2025-10-04</div>
-      <div class="p"><span class="side lng">롱 20×</span><span class="num">FLOKI 0.0000863 → 0.00011244</span></div>
-      <div class="sub2">카드(미실현 표기) · 가격 +30.3%</div></div>
-      <div class="r"><div class="roi up num">+605.79%</div><a href="https://t.me/REALchunbae/2960" target="_blank">원문 #2960</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-09-18</div>
-      <div class="p"><span class="side etc">현물</span>APX 분할 익절</div>
-      <div class="sub2">3년 보유 후 익절</div></div>
-      <div class="r"><div class="roi up num" style="font-size:13px">익절</div><a href="https://t.me/REALchunbae/2946" target="_blank">원문 #2946</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-09-17</div>
-      <div class="p"><span class="side sht">숏 10×</span><span class="num">116,519.5 → 116,506.4</span></div>
-      <div class="sub2">사실상 본전 마감</div></div>
-      <div class="r"><div class="roi zr num">+0.11%</div><a href="https://t.me/REALchunbae/2943" target="_blank">원문 #2943</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-07-16</div>
-      <div class="p"><span class="side lng">롱 25×</span><span class="num">116,072 → 120,000</span></div>
-      <div class="sub2">BitMart 카드 · 07-17 청산 · 가격 +3.4%</div></div>
-      <div class="r"><div class="roi up num">+84.60%</div><a href="https://t.me/REALchunbae/2924" target="_blank">원문 #2924</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-05-06</div>
-      <div class="p"><span class="side lng">롱 20×</span><span class="num">93,845.6 → 100,580.7</span></div>
-      <div class="sub2">카드(미실현 표기) · 가격 +7.2%</div></div>
-      <div class="r"><div class="roi up num">+143.52%</div><a href="https://t.me/REALchunbae/2905" target="_blank">원문 #2905</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-05-04</div>
-      <div class="p"><span class="side lng">롱</span>비트 2차 익절</div>
-      <div class="sub2">수치 미공개 시기</div></div>
-      <div class="r"><div class="roi up num" style="font-size:13px">익절</div><a href="https://t.me/REALchunbae/2904" target="_blank">원문 #2904</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-04-29</div>
-      <div class="p"><span class="side sht">숏 20×</span><span class="num">94,314.0 → 94,188.6</span></div>
-      <div class="sub2">Bitget 카드 · 가격 +0.1%</div></div>
-      <div class="r"><div class="roi up num">+2.65%</div><a href="https://t.me/REALchunbae/2903" target="_blank">원문 #2903</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-04-21</div>
-      <div class="p"><span class="side sht">숏 20×</span><span class="num">84,742.6 → 85,319.8</span></div>
-      <div class="sub2">손절 · Bitget 카드 · 가격 -0.7%</div></div>
-      <div class="r"><div class="roi dn num">-13.62%</div><a href="https://t.me/REALchunbae/2900" target="_blank">원문 #2900</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2025-02-17</div>
-      <div class="p"><span class="side lng">롱 10×</span><span class="num">ETH 2,613.08 → 2,815.66</span></div>
-      <div class="sub2">MEXC 카드 · 가격 +7.8%</div></div>
-      <div class="r"><div class="roi up num">+77.36%</div><a href="https://t.me/REALchunbae/2880" target="_blank">원문 #2880</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2024-12-21</div>
-      <div class="p"><span class="side etc">—</span>비트·이더 분할 익절</div>
-      <div class="sub2">수치 미공개 시기</div></div>
-      <div class="r"><div class="roi up num" style="font-size:13px">익절</div><a href="https://t.me/REALchunbae/2845" target="_blank">원문 #2845</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2024-11-10</div>
-      <div class="p"><span class="side lng">롱 15×</span><span class="num">75,885.6 → 78,861.5</span></div>
-      <div class="sub2">분할 익절 · 카드(미실현 표기) · 가격 +3.9%</div></div>
-      <div class="r"><div class="roi up num">+58.82%</div><a href="https://t.me/REALchunbae/2829" target="_blank">원문 #2829</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2024-09-20</div>
-      <div class="p"><span class="side sht">숏 25×</span><span class="num">63,825 → 62,373.5</span></div>
-      <div class="sub2">카드(미실현 표기) · 가격 +2.3%</div></div>
-      <div class="r"><div class="roi up num">+56.85%</div><a href="https://t.me/REALchunbae/2803" target="_blank">원문 #2803</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2024-09-04</div>
-      <div class="p"><span class="side lng">롱</span>새벽 롱 손절</div>
-      <div class="sub2">수치 미공개 시기</div></div>
-      <div class="r"><div class="roi dn num" style="font-size:13px">손절</div><a href="https://t.me/REALchunbae/2778" target="_blank">원문 #2778</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2024-08-18</div>
-      <div class="p"><span class="side lng">롱 10×</span><span class="num">56,938.7 → 60,185.3</span></div>
-      <div class="sub2">2차 분할익절 후 본절 · Bitget 카드 · 가격 +5.7%</div></div>
-      <div class="r"><div class="roi up num">+57.34%</div><a href="https://t.me/REALchunbae/2765" target="_blank">원문 #2765</a></div></div>
-    <div class="it"><div class="l"><div class="d num">2024-08-13</div>
-      <div class="p"><span class="side lng">롱 125×</span><span class="num">58,835 → 60,880.1</span></div>
-      <div class="sub2">Binance 카드 · 분할 익절 · 가격 +3.5% ※카드 표기 그대로(수수료 차이로 계산값 +434.5%와 상이)</div></div>
-      <div class="r"><div class="roi up num">+419.93%</div><a href="https://t.me/REALchunbae/2760" target="_blank">원문 #2760</a></div></div>
-  </div>
-</details>
+<div class="lbl"><h2>채팅방 실시간 카드 — 실현 +100% 넘는 것만 12장</h2><span>거래소 화면 그대로 · 채팅방 미디어 탭에서 전부 확인 가능</span></div>
+<div class="cards">
+  <div class="cd"><div class="pct num">+281.59%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2025-07-11 실현</div></div>
+  <div class="cd"><div class="pct num">+261.91%</div><div class="pair"><span class="s side lng">롱 10×</span>ZEC</div><div class="dt num">2025-11-16 실현</div></div>
+  <div class="cd"><div class="pct num">+230.94%</div><div class="pair"><span class="s side lng">롱 30×</span>BTC</div><div class="dt num">2026-07-05 실현</div></div>
+  <div class="cd"><div class="pct num">+217.28%</div><div class="pair"><span class="s side lng">롱 10×</span>ARB</div><div class="dt num">2025-07-11 실현</div></div>
+  <div class="cd"><div class="pct num">+180.25%</div><div class="pair"><span class="s side sht">숏 30×</span>BTC</div><div class="dt num">2026-02-19 실현</div></div>
+  <div class="cd"><div class="pct num">+148.69%</div><div class="pair"><span class="s side lng">롱 40×</span>BTC</div><div class="dt num">2025-10-27 실현</div></div>
+  <div class="cd"><div class="pct num">+135.77%</div><div class="pair"><span class="s side lng">롱 20×</span>BTC</div><div class="dt num">2025-07-11 실현</div></div>
+  <div class="cd"><div class="pct num">+134.16%</div><div class="pair"><span class="s side lng">롱 30×</span>ETH</div><div class="dt num">2025-10-23 실현</div></div>
+  <div class="cd"><div class="pct num">+120.53%</div><div class="pair"><span class="s side lng">롱 30×</span>ETH</div><div class="dt num">2025-10-27 실현</div></div>
+  <div class="cd"><div class="pct num">+110.68%</div><div class="pair"><span class="s side lng">롱 10×</span>GALA</div><div class="dt num">2025-06-10 실현</div></div>
+  <div class="cd"><div class="pct num">+104.60%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2026-03 실현</div></div>
+  <div class="cd"><div class="pct num">+97.49%</div><div class="pair"><span class="s side lng">롱 20×</span>ETH</div><div class="dt num">2025-11-27 실현</div></div>
+</div>
+<div class="proof"><b>이 카드들, 편집해서 보여드리는 게 아닙니다.</b> 채팅방에 들어가서 상단 프로필 → 미디어 탭을 열면
+2023년부터 지금까지 쌓인 <b>사진·카드 3,436장</b>이 날짜 순서 그대로 나옵니다.
+BTC뿐 아니라 ETH·SOL·XRP·도지 같은 알트 실시간 진입·청산까지 전부요. 직접 넘겨보고 판단하세요.
+<br><a class="go" href="https://t.me/chunbae74" target="_blank" rel="noopener">채팅방에서 원본 카드 확인 →</a></div>
 
-<details>
-  <summary>더 오래된 기록 · 회원 인증 <span class="ar">▾</span></summary>
-  <div class="inner">
-    <p style="margin:2px 0 8px"><b style="color:var(--ink)">2024년 한 줄 보고</b> — 익절가 전부 도달
-      <a href="https://t.me/REALchunbae/2833" target="_blank">#2833</a> · 롱 분할 익절
-      <a href="https://t.me/REALchunbae/2823" target="_blank">#2823</a> · 분할 익절 후 본절
-      <a href="https://t.me/REALchunbae/2837" target="_blank">#2837</a> ·
-      <a href="https://t.me/REALchunbae/2805" target="_blank">#2805</a> · 비트·이더 손절
-      <a href="https://t.me/REALchunbae/2639" target="_blank">#2639</a></p>
-    <p style="margin:2px 0 8px"><b style="color:var(--ink)">2022~2023년</b> — 2022년은 매일 '매매 일기'로 익절·손절을 기록(손절 포함:
-      <a href="https://t.me/REALchunbae/149" target="_blank">#149</a>
-      <a href="https://t.me/REALchunbae/253" target="_blank">#253</a>
-      <a href="https://t.me/REALchunbae/485" target="_blank">#485</a>),
-      2023년은 목표가를 미리 알리던 시기(
-      <a href="https://t.me/REALchunbae/2031" target="_blank">#2031</a>
-      <a href="https://t.me/REALchunbae/2122" target="_blank">#2122</a>
-      <a href="https://t.me/REALchunbae/2135" target="_blank">#2135</a>). 당시엔 청산 수치를 적지 않았습니다.</p>
-    <p style="margin:2px 0"><b style="color:var(--ink)">회원 인증 24건</b> — 회원분들이 보내주신 수익 인증은 제 성적에 섞지 않습니다.
-      원문에 "전달됨" 표시 또는 다른 분 계정이 찍혀 있어 구분했습니다. 대표 사례:
-      OCEAN 롱 50× +11082% <a href="https://t.me/REALchunbae/2672" target="_blank">#2672</a> ·
-      MEXC 숏 +58.53% <a href="https://t.me/REALchunbae/2772" target="_blank">#2772</a> ·
-      BingX 숏 +142.88% <a href="https://t.me/REALchunbae/2999" target="_blank">#2999</a> ·
-      2022 단체 인증 <a href="https://t.me/REALchunbae/202" target="_blank">#202</a></p>
-  </div>
-</details>
+<div class="lbl"><h2>회원들의 수익 인증 — 41건+</h2><span>제 성적과 섞지 않고 따로 셉니다</span></div>
+<div class="oldrec">
+  <p><b>채널 인증 24건</b> — 원문에 "전달됨" 표시나 다른 분 계정이 찍혀 있어 제 기록과 구분됩니다. 대표 사례:
+    OCEAN 롱 50× +11082% <a href="https://t.me/REALchunbae/2672" target="_blank">보기</a> ·
+    MEXC 숏 +58.53% <a href="https://t.me/REALchunbae/2772" target="_blank">보기</a> ·
+    BingX 숏 +142.88% <a href="https://t.me/REALchunbae/2999" target="_blank">보기</a> ·
+    2022 단체 인증 <a href="https://t.me/REALchunbae/202" target="_blank">보기</a></p>
+  <p><b>채팅방 인증 17건+ 확인</b> — 회원 본인 계정이 찍힌 카드들:
+    바이낸스 APT 숏 20× +96.52% · FET 숏 20× +133.81% · ARB 롱 20× +68.43% ·
+    FET 숏 8× +43.63% · SEI 롱 20× +42.18% · SAND 숏 20× +32.94% 등.
+    채팅방 미디어 탭 초반부에 그대로 있습니다.</p>
+</div>
+
+<div class="lbl"><h2>더 오래된 기록 — 2022~2024</h2><span>수치를 안 적던 시절도 숨기지 않습니다</span></div>
+<div class="oldrec">
+  <p><b>2024년 한 줄 보고</b> — 익절가 전부 도달
+    <a href="https://t.me/REALchunbae/2833" target="_blank">#2833</a> · 롱 분할 익절
+    <a href="https://t.me/REALchunbae/2823" target="_blank">#2823</a> · 분할 익절 후 본절
+    <a href="https://t.me/REALchunbae/2837" target="_blank">#2837</a> ·
+    <a href="https://t.me/REALchunbae/2805" target="_blank">#2805</a> · 비트·이더 손절
+    <a href="https://t.me/REALchunbae/2639" target="_blank">#2639</a></p>
+  <p><b>2022~2023년</b> — 2022년은 매일 '매매 일기'로 익절·손절을 기록(손절 포함:
+    <a href="https://t.me/REALchunbae/149" target="_blank">#149</a>
+    <a href="https://t.me/REALchunbae/253" target="_blank">#253</a>
+    <a href="https://t.me/REALchunbae/485" target="_blank">#485</a>),
+    2023년은 목표가를 미리 알리던 시기(
+    <a href="https://t.me/REALchunbae/2031" target="_blank">#2031</a>
+    <a href="https://t.me/REALchunbae/2122" target="_blank">#2122</a>
+    <a href="https://t.me/REALchunbae/2135" target="_blank">#2135</a>). 당시엔 청산 수치를 적지 않았습니다.</p>
+</div>
 
 <a class="cta" href="https://t.me/chunbae74" target="_blank" rel="noopener">
   다음 기록은 실시간으로 — 텔레그램 입장
@@ -277,12 +299,12 @@
 </a>
 
 <div class="rules">
-  <p><b>이 페이지의 원칙.</b> 이긴 것만 고르지 않습니다 · 배율을 항상 같이 적습니다 · 회원 인증은 제 성적에 섞지 않습니다 · 진행 중 포지션의 매수가·목표가·손절가는 공개하지 않습니다(따라 들어오시게 만들지 않으려는 것입니다).</p>
+  <p><b>이 페이지의 원칙.</b> 이긴 것만 고르지 않습니다 · 배율을 항상 같이 적습니다 · 승률은 공식 청산 보고 기준으로만 계산합니다(실시간 카드는 수익 시점 스냅샷이 많아 승률 계산에 넣지 않습니다) · 회원 인증은 제 성적에 섞지 않습니다 · 진행 중 포지션의 매수가·목표가·손절가는 공개하지 않습니다(따라 들어오시게 만들지 않으려는 것입니다).</p>
 </div>
 
 <div class="foot">
-  채널 전체(메시지 1~3209 · 사진 1,477장)를 대조해 작성 · 수치는 배율×가격변동 검산 완료 ·
-  거래소 카드가 '미실현'으로 표기된 건은 그대로 표기<br><br>
+  채널 전체(메시지 1~3209 · 사진 1,477장)와 채팅방 미디어 3,436장을 대조해 작성 ·
+  수치는 배율×가격변동 검산 완료 · 거래소 카드가 '미실현'으로 표기된 건은 그대로 표기<br><br>
   높은 배율은 방향이 맞으면 크게 돌려주지만 틀리면 그만큼 빠르게 무너집니다.
   지난 결과가 다음 결과를 보장하지 않습니다.<br>
   ※ 정보 제공·교육 목적 · 투자 권유 아님 · 판단과 책임은 본인에게 있습니다.
